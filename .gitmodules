@@ -1,6 +1,0 @@
-[submodule "libft"]
-	path = libs/libft
-	url = https://github.com/jdomingu98/libft.git
-[submodule "get_next_line"]
-	path = libs/get_next_line
-	url = https://github.com/jdomingu98/get_next_line.git

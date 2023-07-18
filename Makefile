@@ -11,7 +11,7 @@ LIBFT	= libs/libft
 GNL_DIR	= libs/get_next_line
 # =================================================================================
 
-GNL_FILES = get_next_line_bonus.c get_next_line_utils_bonus.c
+GNL_FILES = get_next_line.c get_next_line_utils.c
 GNL_SRCS  = $(addprefix $(GNL_DIR), $(GNL_FILES))
 
 FILES	 = cub3d.c
