@@ -1,0 +1,6 @@
+.DS_Store
+cub3d.dSYM
+*.o
+*.swp
+*.a
+cub3d
