@@ -60,9 +60,3 @@ lib/glfw/
 
 # Special shader files
 mlx_*_shader.c
-build/
-main.c
-test
-
-# Automatic downloaded deps
-_deps/

@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   mlx_exit.c                                         :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: W2Wizard <main@w2wizard.dev>                 +#+                     */
+/*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 02:43:22 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2023/06/08 18:12:20 by XEDGit        ########   odam.nl         */
+/*   Updated: 2022/06/29 15:34:25 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void mlx_close_window(mlx_t* mlx)
 
 /**
  * All of glfw & glads resources are cleaned up by the terminate function.
- * Now it's time to clean up our own mess.
+ * Now its time to cleanup our own mess.
  */
 void mlx_terminate(mlx_t* mlx)
 {
@@ -39,9 +39,6 @@ void mlx_terminate(mlx_t* mlx)
 
 	mlx_ctx_t *const mlxctx = mlx->context;
 
-	glUseProgram(0);
-	glLinkProgram(mlxctx->shaderprogram);
-	glDeleteProgram(mlxctx->shaderprogram);
 	glfwTerminate();
 	mlx_lstclear((mlx_list_t**)(&mlxctx->hooks), &free);
 	mlx_lstclear((mlx_list_t**)(&mlxctx->render_queue), &free);

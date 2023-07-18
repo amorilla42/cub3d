@@ -3,7 +3,7 @@
 /*                                                        ::::::::            */
 /*   mlx_font.c                                         :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: W2Wizard <main@w2wizard.dev>                 +#+                     */
+/*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/22 12:01:37 by W2Wizard      #+#    #+#                 */
 /*   Updated: 2022/06/27 19:53:36 by lde-la-h      ########   odam.nl         */
@@ -31,7 +31,7 @@ static void mlx_draw_char(mlx_image_t* image, int32_t texoffset, int32_t imgoffs
 	if (texoffset < 0)
 		return;
 
-	char* pixelx;
+	uint8_t* pixelx;
 	uint8_t* pixeli;
 	for (uint32_t y = 0; y < FONT_HEIGHT; y++)
 	{
@@ -65,7 +65,7 @@ mlx_image_t* mlx_put_string(mlx_t* mlx, const char* str, int32_t x, int32_t y)
 	mlx_image_t* strimage;
 	const size_t len = strlen(str);
 	if (len > MLX_MAX_STRING)
-		return ((void*)mlx_error(MLX_STRTOOBIG));	
+		return ((void*)mlx_error(MLX_STRTOBIG));	
 	if (!(strimage = mlx_new_image(mlx, len * FONT_WIDTH, FONT_HEIGHT)))
 		return (NULL);
 

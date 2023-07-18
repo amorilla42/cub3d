@@ -1,7 +1,7 @@
 /*
-LodePNG version 20230410
+LodePNG version 20220717
 
-Copyright (c) 2005-2023 Lode Vandevenne
+Copyright (c) 2005-2022 Lode Vandevenne
 
 This software is provided 'as-is', without any express or implied
 warranty. In no event will the authors be held liable for any damages
@@ -92,10 +92,7 @@ or comment out LODEPNG_COMPILE_ALLOCATORS below*/
 #endif
 
 /*Disable built-in CRC function, in that case a custom implementation of
-lodepng_crc32 must be defined externally so that it can be linked in.
-The default built-in CRC code comes with 8KB of lookup tables, so for memory constrained environment you may want it
-disabled and provide a much smaller implementation externally as said above. You can find such an example implementation
-in a comment in the lodepng.c(pp) file in the 'else' case of the searchable LODEPNG_COMPILE_CRC section.*/
+lodepng_crc32 must be defined externally so that it can be linked in.*/
 #ifndef LODEPNG_NO_COMPILE_CRC
 /*pass -DLODEPNG_NO_COMPILE_CRC to the compiler to disable the built-in one,
 or comment out LODEPNG_COMPILE_CRC below*/
@@ -1912,7 +1909,6 @@ symbol.
 Not all changes are listed here, the commit history in github lists more:
 https://github.com/lvandeve/lodepng
 
-*) 10 apr 2023: faster CRC32 implementation, but with larger lookup table.
 *) 13 jun 2022: added support for the sBIT chunk.
 *) 09 jan 2022: minor decoder speed improvements.
 *) 27 jun 2021: added warnings that file reading/writing functions don't support
