@@ -1,0 +1,5 @@
+.DS_Store
+*.out
+*.o
+*.a
+/Users/jdomingu/cursus/libft/libftTester/*
