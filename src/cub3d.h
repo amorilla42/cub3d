@@ -16,7 +16,12 @@
 
 
 struct	s_game{
-
+	texturenorth;
+	texturewest;
+	texturesouth;
+	textureeast;
+	mlx_t *mlx;
+	mlx_win *win;
 }	t_game;
 
 
