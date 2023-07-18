@@ -18,6 +18,6 @@ int	main(int argc, char **argv)
 		mlx_loop(game.mlx);
 	}
 	else
-		ft_putstr_fd("Error\n Wrong number of arguments\n", 2);
+		ft_putstr_fd("Error\nWrong number of arguments\n", 2);
 	return (0);
 }
