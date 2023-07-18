@@ -5,9 +5,9 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <math.h>
-# include "../mlx/mlx.h"
-# include "../libft/libft.h"
-# include "../gnl/get_next_line.h"
+# include "../mlx/mlx.h" // LA RUTA ESTA MAL
+# include "../libft/libft.h"  // LA RUTA ESTA MAL
+# include "../gnl/get_next_line.h"  // LA RUTA ESTA MAL
 # define BUFFER_SIZE 32
 # define KEY_W 13
 # define KEY_S 1
