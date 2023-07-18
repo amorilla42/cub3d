@@ -15,7 +15,9 @@
 # define KEY_D 2
 
 
+struct	s_game{
 
+}	t_game;
 
 
 
