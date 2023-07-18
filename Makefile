@@ -8,7 +8,7 @@ LIBS	= -lglfw -L /Users/${USER}/.brew/opt/glfw/lib/ $(LIBMLX)/libmlx42.a $(LIBFT
 SRC_DIR = src/
 LIBMLX	= libs/MLX42
 LIBFT	= libs/libft
-GNL_DIR	= libs/get_next_line
+GNL_DIR	= libs/get_next_line/
 # =================================================================================
 
 GNL_FILES = get_next_line.c get_next_line_utils.c

@@ -1,8 +1,10 @@
-#include "cub3D.h"
+#include "cub3d.h"
 
 int	main(int argc, char **argv)
 {
-	t_game	game;
+	(void) argc;
+	(void) argv;
+	/*t_game	game;
 
 	if (argc == 2)
 	{
@@ -19,5 +21,7 @@ int	main(int argc, char **argv)
 	}
 	else
 		ft_putstr_fd("Error\nWrong number of arguments\n", 2);
+
+	*/
 	return (0);
 }
