@@ -13,16 +13,23 @@
 # define KEY_A 0
 # define KEY_D 2
 
-
-struct	s_game{
-	texturenorth;
-	texturewest;
-	texturesouth;
-	textureeast;
-	mlx_t *mlx;
-	mlx_win *win;
-}	t_game;
-
+/*
+typedef struct s_data
+{
+	void		*mlx;
+	void		*win;
+	int			win_height;
+	int			win_width;
+	t_mapinfo	mapinfo;
+	char		**map;
+	t_player	player;
+	t_ray		ray;
+	int			**texture_pixels;
+	int			**textures;
+	t_texinfo	texinfo;
+	t_img		minimap;
+}	t_data;
+*/
 
 
 
