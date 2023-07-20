@@ -6,7 +6,7 @@
 /*   By: amorilla <amorilla@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 18:29:29 by jdomingu          #+#    #+#             */
-/*   Updated: 2023/07/19 18:14:03 by amorilla         ###   ########.fr       */
+/*   Updated: 2023/07/20 19:09:26 by amorilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ char	*ft_getline(int fd, char *buff, char **static_buff)
 	return (line);
 }
 
-char	*get_next_line(int fd)
+char	*ft_get_next_line(int fd)
 {
 	static char	*static_buff[1024];
 	char		*buff;
