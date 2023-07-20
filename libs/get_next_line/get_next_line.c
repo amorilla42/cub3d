@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdomingu <jdomingu@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: amorilla <amorilla@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 18:29:29 by jdomingu          #+#    #+#             */
-/*   Updated: 2022/06/15 11:40:12 by jdomingu         ###   ########.fr       */
+/*   Updated: 2023/07/19 18:14:03 by amorilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,10 @@ int	ft_read_fd(int fd, char *buff, char **line, int *eol_idx)
 	if (nbytes == -1)
 		return (-1);
 	if (ft_find_eol(buff, eol_idx))
-		ft_strjoin(line, buff, ((size_t)(*eol_idx)) + 1);
+		ft_strjoin_gnl(line, buff, ((size_t)(*eol_idx)) + 1);
 	else
 	{
-		ft_strjoin(line, buff, ft_strlen(buff));
+		ft_strjoin_gnl(line, buff, ft_strlen(buff));
 		*eol_idx = -1;
 	}
 	return (nbytes);
@@ -62,13 +62,13 @@ int	ft_check_buff(char **static_buff, char **line)
 	}
 	if (ft_find_eol(*static_buff, &i))
 	{
-		*line = ft_substr(*static_buff, 0, i + 1);
+		*line = ft_substr_gnl(*static_buff, 0, i + 1);
 		tmp = *static_buff;
-		*static_buff = ft_substr(tmp, i + 1, ft_strlen(*static_buff));
+		*static_buff = ft_substr_gnl(tmp, i + 1, ft_strlen(*static_buff));
 		free(tmp);
 		return (1);
 	}
-	*line = ft_strdup(*static_buff);
+	*line = ft_strdup_gnl(*static_buff);
 	free(*static_buff);
 	*static_buff = 0;
 	return (0);
@@ -96,9 +96,9 @@ char	*ft_getline(int fd, char *buff, char **static_buff)
 	free(*static_buff);
 	*static_buff = 0;
 	if (eol_idx == -1)
-		ft_strjoin(&line, buff, ft_strlen(buff));
+		ft_strjoin_gnl(&line, buff, ft_strlen(buff));
 	else
-		*static_buff = ft_substr(buff, (size_t) eol_idx + 1, ft_strlen(buff));
+		*static_buff = ft_substr_gnl(buff, (size_t) eol_idx + 1, ft_strlen(buff));
 	return (line);
 }
 

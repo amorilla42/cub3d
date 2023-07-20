@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdomingu <jdomingu@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: amorilla <amorilla@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 16:46:00 by jdomingu          #+#    #+#             */
-/*   Updated: 2022/06/15 11:41:15 by jdomingu         ###   ########.fr       */
+/*   Updated: 2023/07/19 18:19:28 by amorilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,10 @@
 
 # include <unistd.h>
 # include <stdlib.h>
+# include "../libft/libft.h"
 
 char	*get_next_line(int fd);
-char	*ft_substr(char *s, unsigned int start, size_t len);
-char	*ft_strdup(char *str);
-void	ft_strjoin(char **str1, char *str2, size_t s2len);
-size_t	ft_strlen(char *str);
-void	*ft_calloc(size_t count, size_t size);
+char	*ft_substr_gnl(char *s, unsigned int start, size_t len);
+char	*ft_strdup_gnl(char *str);
+void	ft_strjoin_gnl(char **str1, char *str2, size_t s2len);
 #endif

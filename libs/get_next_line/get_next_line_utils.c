@@ -3,26 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdomingu <jdomingu@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: amorilla <amorilla@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 16:05:56 by jdomingu          #+#    #+#             */
-/*   Updated: 2022/06/15 11:41:01 by jdomingu         ###   ########.fr       */
+/*   Updated: 2023/07/19 18:12:56 by amorilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-size_t	ft_strlen(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str && str[i])
-		i++;
-	return (i);
-}
-
-char	*ft_strdup(char *s1)
+char	*ft_strdup_gnl(char *s1)
 {
 	int		len;
 	int		i;
@@ -43,7 +33,7 @@ char	*ft_strdup(char *s1)
 	return (res);
 }
 
-char	*ft_substr(char *s, unsigned int start, size_t len)
+char	*ft_substr_gnl(char *s, unsigned int start, size_t len)
 {
 	char	*str;
 	size_t	slen;
@@ -71,7 +61,7 @@ char	*ft_substr(char *s, unsigned int start, size_t len)
 	return (str);
 }
 
-void	ft_strjoin(char **s1, char *s2, size_t s2len)
+void	ft_strjoin_gnl(char **s1, char *s2, size_t s2len)
 {
 	char	*str;
 	size_t	i;
@@ -96,22 +86,4 @@ void	ft_strjoin(char **s1, char *s2, size_t s2len)
 		free(*s1);
 		*s1 = str;
 	}
-}
-
-void	*ft_calloc(size_t count, size_t size)
-{
-	char	*ptr;
-	size_t	mult;
-	size_t	i;
-
-	mult = count * size;
-	if (count != 0 && mult / count != size)
-		return (0);
-	ptr = (char *) malloc(mult);
-	if (!ptr)
-		return (0);
-	i = 0;
-	while (mult--)
-		ptr[i++] = 0;
-	return (ptr);
 }
