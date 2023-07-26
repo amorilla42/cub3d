@@ -5,14 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jdomingu <jdomingu@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/10 16:05:56 by jdomingu          #+#    #+#             */
-/*   Updated: 2022/06/15 11:41:01 by jdomingu         ###   ########.fr       */
+/*   Created: 2023/01/09 20:25:56 by jdomingu          #+#    #+#             */
+/*   Updated: 2023/01/09 20:26:03 by jdomingu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-size_t	ft_strlen(char *str)
+size_t	ft_gnl_strlen(char *str)
 {
 	int	i;
 
@@ -22,7 +22,7 @@ size_t	ft_strlen(char *str)
 	return (i);
 }
 
-char	*ft_strdup(char *s1)
+char	*ft_gnl_strdup(char *s1)
 {
 	int		len;
 	int		i;
@@ -30,8 +30,8 @@ char	*ft_strdup(char *s1)
 
 	if (!s1)
 		return (0);
-	len = ft_strlen(s1);
-	res = (char *) ft_calloc(len + 1, sizeof(char));
+	len = ft_gnl_strlen(s1);
+	res = (char *) ft_gnl_calloc(len + 1, sizeof(char));
 	if (!res)
 		return (0);
 	i = 0;
@@ -43,7 +43,7 @@ char	*ft_strdup(char *s1)
 	return (res);
 }
 
-char	*ft_substr(char *s, unsigned int start, size_t len)
+char	*ft_gnl_substr(char *s, unsigned int start, size_t len)
 {
 	char	*str;
 	size_t	slen;
@@ -52,14 +52,14 @@ char	*ft_substr(char *s, unsigned int start, size_t len)
 
 	if (!s)
 		return (0);
-	slen = ft_strlen(s);
+	slen = ft_gnl_strlen(s);
 	if (start >= slen)
 		return (0);
 	if (slen - start < len)
 		minlen = slen - start;
 	else
 		minlen = len;
-	str = (char *) ft_calloc(minlen + 1, sizeof(char));
+	str = (char *) ft_gnl_calloc(minlen + 1, sizeof(char));
 	if (!str)
 		return (0);
 	i = 0;
@@ -71,7 +71,7 @@ char	*ft_substr(char *s, unsigned int start, size_t len)
 	return (str);
 }
 
-void	ft_strjoin(char **s1, char *s2, size_t s2len)
+void	ft_gnl_strjoin(char **s1, char *s2, size_t s2len)
 {
 	char	*str;
 	size_t	i;
@@ -79,8 +79,8 @@ void	ft_strjoin(char **s1, char *s2, size_t s2len)
 
 	if (s2len != 0)
 	{
-		s1len = ft_strlen(*s1);
-		str = (char *) ft_calloc(s1len + s2len + 1, sizeof(char));
+		s1len = ft_gnl_strlen(*s1);
+		str = (char *) ft_gnl_calloc(s1len + s2len + 1, sizeof(char));
 		if (!str)
 		{
 			free(*s1);
@@ -98,7 +98,7 @@ void	ft_strjoin(char **s1, char *s2, size_t s2len)
 	}
 }
 
-void	*ft_calloc(size_t count, size_t size)
+void	*ft_gnl_calloc(size_t count, size_t size)
 {
 	char	*ptr;
 	size_t	mult;
