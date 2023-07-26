@@ -28,7 +28,8 @@ typedef struct  s_data
 # define ARGS_ERR "Error\nWrong number of arguments"
 # define MALLOC_ERR "Error\nMemory was not allocated"
 
-
+void	press_key(mlx_key_data_t keydata, void	*game_data);
+void    free_and_exit(t_data *data, int exit_code_number);
 
 
 
