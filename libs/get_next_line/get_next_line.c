@@ -5,14 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: amorilla <amorilla@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/24 18:29:29 by jdomingu          #+#    #+#             */
-/*   Updated: 2023/07/20 19:09:26 by amorilla         ###   ########.fr       */
+/*   Created: 2023/01/09 20:25:40 by jdomingu          #+#    #+#             */
+/*   Updated: 2023/01/09 20:25:50 by jdomingu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int	ft_find_eol(char *buff, int *pos)
+static int	ft_find_eol(char *buff, int *pos)
 {
 	int	i;
 
@@ -29,7 +29,7 @@ int	ft_find_eol(char *buff, int *pos)
 	return (0);
 }
 
-int	ft_read_fd(int fd, char *buff, char **line, int *eol_idx)
+static int	ft_read_fd(int fd, char *buff, char **line, int *eol_idx)
 {
 	int		nbytes;
 	int		i;
@@ -41,16 +41,16 @@ int	ft_read_fd(int fd, char *buff, char **line, int *eol_idx)
 	if (nbytes == -1)
 		return (-1);
 	if (ft_find_eol(buff, eol_idx))
-		ft_strjoin_gnl(line, buff, ((size_t)(*eol_idx)) + 1);
+		ft_gnl_strjoin(line, buff, ((size_t)(*eol_idx)) + 1);
 	else
 	{
-		ft_strjoin_gnl(line, buff, ft_strlen(buff));
+		ft_gnl_strjoin(line, buff, ft_gnl_strlen(buff));
 		*eol_idx = -1;
 	}
 	return (nbytes);
 }
 
-int	ft_check_buff(char **static_buff, char **line)
+static int	ft_check_buff(char **static_buff, char **line)
 {
 	int		i;
 	char	*tmp;
@@ -62,19 +62,19 @@ int	ft_check_buff(char **static_buff, char **line)
 	}
 	if (ft_find_eol(*static_buff, &i))
 	{
-		*line = ft_substr_gnl(*static_buff, 0, i + 1);
+		*line = ft_gnl_substr(*static_buff, 0, i + 1);
 		tmp = *static_buff;
-		*static_buff = ft_substr_gnl(tmp, i + 1, ft_strlen(*static_buff));
+		*static_buff = ft_gnl_substr(tmp, i + 1, ft_gnl_strlen(*static_buff));
 		free(tmp);
 		return (1);
 	}
-	*line = ft_strdup_gnl(*static_buff);
+	*line = ft_gnl_strdup(*static_buff);
 	free(*static_buff);
 	*static_buff = 0;
 	return (0);
 }
 
-char	*ft_getline(int fd, char *buff, char **static_buff)
+static char	*ft_getline(int fd, char *buff, char **static_buff)
 {
 	char	*line;
 	int		nbytes;
@@ -96,9 +96,10 @@ char	*ft_getline(int fd, char *buff, char **static_buff)
 	free(*static_buff);
 	*static_buff = 0;
 	if (eol_idx == -1)
-		ft_strjoin_gnl(&line, buff, ft_strlen(buff));
+		ft_gnl_strjoin(&line, buff, ft_gnl_strlen(buff));
 	else
-		*static_buff = ft_substr_gnl(buff, (size_t) eol_idx + 1, ft_strlen(buff));
+		*static_buff = ft_gnl_substr(buff, (size_t) eol_idx + 1,
+				ft_gnl_strlen(buff));
 	return (line);
 }
 
@@ -111,7 +112,7 @@ char	*ft_get_next_line(int fd)
 	line = 0;
 	if (BUFFER_SIZE > 0 && fd >= 0 && fd < 1024)
 	{
-		buff = (char *) ft_calloc(BUFFER_SIZE + 1, sizeof(char));
+		buff = (char *) ft_gnl_calloc(BUFFER_SIZE + 1, sizeof(char));
 		if (buff)
 		{
 			line = ft_getline(fd, buff, &(static_buff[fd]));
