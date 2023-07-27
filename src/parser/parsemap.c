@@ -8,16 +8,17 @@ static int	check_file_extension(char *archive)
 	if((len > 4) && (archive[len - 4] == '.')
 		&& (archive[len - 3] == 'c')
 		&& (archive[len - 2] == 'u')
-		&& (archive[len - 1] == 'b'));
-		return (1);
+		&& (archive[len - 1] == 'b'))
+		return (0);
 	ft_putendl_fd("Error: Invalid file extension", 2);
-	return (0);
+	return (1);
 }
 
 static int check_file_exists(char *archive)
 {
 	int fd;
 
+	ft_putendl_fd("SUKA BLYAT", 2);
 	fd = open(archive, O_RDONLY);
 	if (fd == -1)
 	{
@@ -25,76 +26,61 @@ static int check_file_exists(char *archive)
 		return (1);
 	}
 	close(fd);
+	ft_putendl_fd("locoooo BLYAT", 2);
 	return (0);
 }
 
-static int	load_textures(char *archive, t_data *data){
+static int	load_textures(char *archive, t_data *data)
+{
 	int fd;
 	char *line;
 	int i;
 
 	i = 0;
 	fd = open(archive, O_RDONLY);
-	while (line = ft_get_next_line(fd) > 0)
+	line = ft_get_next_line(fd);
+	while (line > 0)
 	{
 		if (line[0] == 'N' && line[1] == 'O')
-		{
-			data->north_texture = ft_strdup(line + 2);
-			i++;
-		}
+			data->mapinfo->no_path = ft_strdup(line + 2);
 		if (line[0] == 'S' && line[1] == 'O')
-		{
-			data->south_texture = ft_strdup(line + 2);
-			i++;
-		}
+			data->mapinfo->so_path = ft_strdup(line + 2);
 		if (line[0] == 'W' && line[1] == 'E')
-		{
-			data->west_texture = ft_strdup(line + 2);
-			i++;
-		}
+			data->mapinfo->we_path = ft_strdup(line + 2);
 		if (line[0] == 'E' && line[1] == 'A')
-		{
-			data->east_texture = ft_strdup(line + 2);
-			i++;
-		}
-		if (line[0] == 'S' && line[1] == ' ')
-		{
-			data->sprite_texture = ft_strdup(line + 2);
-			i++;
-		}
+			data->mapinfo->ea_path = ft_strdup(line + 2);
 		if (line[0] == 'F' && line[1] == ' ')
-		{
-			data->floor_color = ft_strdup(line + 2);
-			i++;
-		}
+			data->mapinfo->floor_color = 3;//ft_strdup(line + 2);
 		if (line[0] == 'C' && line[1] == ' ')
-		{
-			data->ceiling_color = ft_strdup(line + 2);
-			i++;
-		}
-		if (line[0] == 'R' && line[1] == ' ')
-		{
-			data->resolution = ft_strdup(line + 2);
-			i++;
-		}
+			data->mapinfo->ceiling_color = 88;//ft_strdup(line + 2);
+		i++;
 	}
-	if (i != 8)
-	{
-		ft_putendl_fd("Error: Missing information", 2);
-		return (1);
-	}
+	if (i != 8 || !data->mapinfo->no_path || !data->mapinfo->so_path
+		|| !data->mapinfo->we_path || !data->mapinfo->ea_path
+		|| !data->mapinfo->floor_color || !data->mapinfo->ceiling_color)
+		return (ft_putendl_fd("Error: Missing information", 2), 1);
 	return (0);
 }
 
-
 int	parsemap(char *archive, t_data *data)
 {	
-	if (!check_file_extension(archive) || !check_file_exists(archive))
+	if (check_file_extension(archive) || check_file_exists(archive))
 	{
+		ft_putstr_fd("basuron\n", 1);
 		return (1);
 	}
-	load_textures(archive, data);
+	if (load_textures(archive, data))
+	{
+		ft_putstr_fd("textura en tu cara\n", 1);
+		return (1);
+	}
 
+	printf("NO: %s\n", data->mapinfo->no_path);
+	printf("SO: %s\n", data->mapinfo->so_path);
+	printf("WE: %s\n", data->mapinfo->we_path);
+	printf("EA: %s\n", data->mapinfo->ea_path);
+	printf("F: %d\n", data->mapinfo->floor_color);
+	printf("C: %d\n", data->mapinfo->ceiling_color);
 
 	return (0);
 }

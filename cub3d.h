@@ -32,7 +32,7 @@ typedef struct s_data
 	void		*win;
 	int			win_height;
 	int			win_width;
-	t_mapinfo	mapinfo;
+	t_mapinfo	*mapinfo;
 	char		**map;
 	//t_player	player;
 	//t_ray		ray;

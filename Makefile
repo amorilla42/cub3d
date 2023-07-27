@@ -1,5 +1,5 @@
 NAME	= cub3d
-CFLAGS	= -Wall -Wextra -Werror -D BUFFER_SIZE=42 #-g -fsanitize=address
+CFLAGS	= -Wall -Wextra -Werror -D BUFFER_SIZE=42 -g # -fsanitize=address
 HEADERS = -I $(GNL_DIR) -I $(LIBMLX)/include/MLX42 -I $(LIBFT)
 LIBS	= -lglfw -L /Users/${USER}/.brew/opt/glfw/lib/ $(LIBMLX)/libmlx42.a $(LIBFT)/libft.a
 #LIBS_LINUX = -ldl -lglfw -pthread -lm
