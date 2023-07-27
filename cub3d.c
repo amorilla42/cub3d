@@ -2,12 +2,13 @@
 
 int	main(int argc, char **argv)
 {
-	t_data	data;
-	int		error;
+	t_data		data;
+	t_mapinfo	mapinfo;
+	int			error;
 
-
+	data.mapinfo = &mapinfo;
 	int fd = open("assets/maps/mapa1.cub", O_RDONLY);
-	char *line = ft_get_next_line(fd);
+	char *line = get_next_line(fd);
 	printf("%s\n", line);
 	printf("LOLASO RIXA\n");
 	if (argc == 2)

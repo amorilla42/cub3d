@@ -22,8 +22,8 @@ typedef struct s_mapinfo
 	char	*we_path;
 	char	*ea_path;
 	char	*s_path;
-	int		floor_color;
-	int		ceiling_color;
+	int		floor_color[3];
+	int		ceiling_color[3];
 }	t_mapinfo;
 
 typedef struct s_data
@@ -38,8 +38,6 @@ typedef struct s_data
 	//t_ray		ray;
 	int			**texture_pixels;
 	int			**textures;
-	//t_texinfo	texinfo;
-	//t_img		minimap;
 }	t_data;
 
 
@@ -52,4 +50,4 @@ int	parsemap(char *archive, t_data *data);
 
 
 
-# endif
+#endif

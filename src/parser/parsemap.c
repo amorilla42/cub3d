@@ -38,24 +38,26 @@ static int	load_textures(char *archive, t_data *data)
 
 	i = 0;
 	fd = open(archive, O_RDONLY);
-	line = ft_get_next_line(fd);
+	line = get_next_line(fd);
 	while (line > 0)
 	{
 		if (line[0] == 'N' && line[1] == 'O')
-			data->mapinfo->no_path = ft_strdup(line + 2);
+			data->mapinfo->no_path = ft_substr(line, 2, ft_strlen(line)-1);
 		if (line[0] == 'S' && line[1] == 'O')
-			data->mapinfo->so_path = ft_strdup(line + 2);
+			data->mapinfo->so_path = ft_substr(line, 2, ft_strlen(line)-1);
 		if (line[0] == 'W' && line[1] == 'E')
-			data->mapinfo->we_path = ft_strdup(line + 2);
+			data->mapinfo->we_path = ft_substr(line, 2, ft_strlen(line)-1);
 		if (line[0] == 'E' && line[1] == 'A')
-			data->mapinfo->ea_path = ft_strdup(line + 2);
+			data->mapinfo->ea_path = ft_substr(line, 2, ft_strlen(line)-1);
 		if (line[0] == 'F' && line[1] == ' ')
 			data->mapinfo->floor_color = 3;//ft_strdup(line + 2);
 		if (line[0] == 'C' && line[1] == ' ')
 			data->mapinfo->ceiling_color = 88;//ft_strdup(line + 2);
 		i++;
+		free(line);
+		line = get_next_line(fd);
 	}
-	if (i != 8 || !data->mapinfo->no_path || !data->mapinfo->so_path
+	if (i != 5 || !data->mapinfo->no_path || !data->mapinfo->so_path
 		|| !data->mapinfo->we_path || !data->mapinfo->ea_path
 		|| !data->mapinfo->floor_color || !data->mapinfo->ceiling_color)
 		return (ft_putendl_fd("Error: Missing information", 2), 1);
@@ -72,7 +74,7 @@ int	parsemap(char *archive, t_data *data)
 	if (load_textures(archive, data))
 	{
 		ft_putstr_fd("textura en tu cara\n", 1);
-		return (1);
+		//return (1);
 	}
 
 	printf("NO: %s\n", data->mapinfo->no_path);
