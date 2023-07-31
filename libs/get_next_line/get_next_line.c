@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdomingu <jdomingu@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: amorilla <amorilla@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 20:25:40 by jdomingu          #+#    #+#             */
-/*   Updated: 2023/01/09 20:25:50 by jdomingu         ###   ########.fr       */
+/*   Updated: 2023/07/27 17:43:47 by amorilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
