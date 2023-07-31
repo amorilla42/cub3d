@@ -3,14 +3,9 @@
 int	main(int argc, char **argv)
 {
 	t_data		data;
-	t_mapinfo	mapinfo;
 	int			error;
 
-	data.mapinfo = &mapinfo;
-	int fd = open("assets/maps/mapa1.cub", O_RDONLY);
-	char *line = get_next_line(fd);
-	printf("%s\n", line);
-	printf("LOLASO RIXA\n");
+	data.mapinfo = ft_calloc(1, sizeof(t_mapinfo));
 	if (argc == 2)
 	{
 		error = parsemap(argv[1], &data);
@@ -21,7 +16,6 @@ int	main(int argc, char **argv)
 			return (1);
 		}
 		*/
-		ft_putstr_fd("perfectisimo\n", 1);
 	}
 	else
 		ft_putstr_fd("Error\nWrong number of arguments\n", 2);

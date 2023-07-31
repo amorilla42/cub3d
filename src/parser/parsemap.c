@@ -14,11 +14,26 @@ static int	check_file_extension(char *archive)
 	return (1);
 }
 
+static int check_texture_exists(char *archive)
+{
+	int fd;
+
+	fd = open(archive, O_RDONLY);
+	if (fd == -1)
+	{
+		ft_putstr_fd("Error: Texture ", 2);
+		ft_putstr_fd(archive, 2);
+		ft_putendl_fd(" does not exist", 2);
+		return (1);
+	}
+	close(fd);
+	return (0);
+}
+
 static int check_file_exists(char *archive)
 {
 	int fd;
 
-	ft_putendl_fd("SUKA BLYAT", 2);
 	fd = open(archive, O_RDONLY);
 	if (fd == -1)
 	{
@@ -26,7 +41,6 @@ static int check_file_exists(char *archive)
 		return (1);
 	}
 	close(fd);
-	ft_putendl_fd("locoooo BLYAT", 2);
 	return (0);
 }
 
@@ -39,28 +53,33 @@ static int	load_textures(char *archive, t_data *data)
 	i = 0;
 	fd = open(archive, O_RDONLY);
 	line = get_next_line(fd);
-	while (line > 0)
+	while (line[0] != '1' && line[0] != '0')
 	{
-		if (line[0] == 'N' && line[1] == 'O')
-			data->mapinfo->no_path = ft_substr(line, 2, ft_strlen(line)-1);
-		if (line[0] == 'S' && line[1] == 'O')
-			data->mapinfo->so_path = ft_substr(line, 2, ft_strlen(line)-1);
-		if (line[0] == 'W' && line[1] == 'E')
-			data->mapinfo->we_path = ft_substr(line, 2, ft_strlen(line)-1);
-		if (line[0] == 'E' && line[1] == 'A')
-			data->mapinfo->ea_path = ft_substr(line, 2, ft_strlen(line)-1);
-		if (line[0] == 'F' && line[1] == ' ')
-			data->mapinfo->floor_color = 3;//ft_strdup(line + 2);
-		if (line[0] == 'C' && line[1] == ' ')
-			data->mapinfo->ceiling_color = 88;//ft_strdup(line + 2);
-		i++;
+		if(line[0] != '\n')
+		{
+			if (line[0] == 'N' && line[1] == 'O')
+				data->mapinfo->no_path = ft_substr(line, 3, ft_strlen(line)-4);
+			if (line[0] == 'S' && line[1] == 'O')
+				data->mapinfo->so_path = ft_substr(line, 3, ft_strlen(line)-4);
+			if (line[0] == 'W' && line[1] == 'E')
+				data->mapinfo->we_path = ft_substr(line, 3, ft_strlen(line)-4);
+			if (line[0] == 'E' && line[1] == 'A')
+				data->mapinfo->ea_path = ft_substr(line, 3, ft_strlen(line)-4);
+			if (line[0] == 'F' && line[1] == ' ')
+				data->mapinfo->floor_color_B = 3;
+			if (line[0] == 'C' && line[1] == ' ')
+				data->mapinfo->ceiling_color_B = 4;
+			i++;
+		}
 		free(line);
 		line = get_next_line(fd);
 	}
-	if (i != 5 || !data->mapinfo->no_path || !data->mapinfo->so_path
-		|| !data->mapinfo->we_path || !data->mapinfo->ea_path
-		|| !data->mapinfo->floor_color || !data->mapinfo->ceiling_color)
+	if (i != 6 || !data->mapinfo->no_path || !data->mapinfo->so_path
+		|| !data->mapinfo->we_path || !data->mapinfo->ea_path)//añadir los colores en array????? es pregunta
 		return (ft_putendl_fd("Error: Missing information", 2), 1);
+	if (check_texture_exists(data->mapinfo->no_path) || check_texture_exists(data->mapinfo->so_path)
+		|| check_texture_exists(data->mapinfo->we_path) || check_texture_exists(data->mapinfo->ea_path))
+		return (1);
 	return (0);
 }
 
@@ -68,21 +87,19 @@ int	parsemap(char *archive, t_data *data)
 {	
 	if (check_file_extension(archive) || check_file_exists(archive))
 	{
-		ft_putstr_fd("basuron\n", 1);
 		return (1);
 	}
 	if (load_textures(archive, data))
 	{
-		ft_putstr_fd("textura en tu cara\n", 1);
-		//return (1);
+		return (1);
 	}
 
 	printf("NO: %s\n", data->mapinfo->no_path);
 	printf("SO: %s\n", data->mapinfo->so_path);
 	printf("WE: %s\n", data->mapinfo->we_path);
 	printf("EA: %s\n", data->mapinfo->ea_path);
-	printf("F: %d\n", data->mapinfo->floor_color);
-	printf("C: %d\n", data->mapinfo->ceiling_color);
+	printf("F: %d\n", data->mapinfo->floor_color_B);
+	printf("C: %d\n", data->mapinfo->ceiling_color_B);
 
 	return (0);
 }

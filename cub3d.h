@@ -22,8 +22,12 @@ typedef struct s_mapinfo
 	char	*we_path;
 	char	*ea_path;
 	char	*s_path;
-	int		floor_color[3];
-	int		ceiling_color[3];
+	int		floor_color_R;
+	int		floor_color_G;
+	int		floor_color_B;
+	int		ceiling_color_R;
+	int		ceiling_color_G;
+	int		ceiling_color_B;
 }	t_mapinfo;
 
 typedef struct s_data
