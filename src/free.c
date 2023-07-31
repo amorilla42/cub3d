@@ -1,4 +1,4 @@
-#include "cub3d.h"
+#include "../cub3d.h"
 
 void    free_and_exit(t_data *data, int exit_code_number)
 {

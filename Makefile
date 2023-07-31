@@ -18,7 +18,7 @@ PARSER_SRCS  = $(addprefix $(PARSER_DIR), $(PARSER_FILES))
 GNL_FILES = get_next_line.c get_next_line_utils.c
 GNL_SRCS  = $(addprefix $(GNL_DIR), $(GNL_FILES))
 
-#FILES	 = cub3d.c
+FILES	 = free.c
 SRCS	 = $(addprefix $(SRC_DIR), $(FILES)) cub3d.c $(GNL_SRCS) $(PARSER_SRCS)
 
 OBJS = $(SRCS:.c=.o)
