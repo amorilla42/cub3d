@@ -1,22 +1,9 @@
 #include "../../cub3d.h"
 
-static int	check_file_extension(char *archive)
-{
-	size_t	len;
-
-	len = (int)ft_strlen(archive);
-	if((len > 4) && (archive[len - 4] == '.')
-		&& (archive[len - 3] == 'c')
-		&& (archive[len - 2] == 'u')
-		&& (archive[len - 1] == 'b'))
-		return (0);
-	ft_putendl_fd("Error: Invalid file extension", 2);
-	return (1);
-}
-
-static int check_texture_exists(char *archive)
+static int check_texture(char *archive)
 {
 	int fd;
+	size_t	len;
 
 	fd = open(archive, O_RDONLY);
 	if (fd == -1)
@@ -27,12 +14,22 @@ static int check_texture_exists(char *archive)
 		return (1);
 	}
 	close(fd);
-	return (0);
+	len = (int)ft_strlen(archive);
+	if((len > 4) && (archive[len - 4] == '.')
+		&& (archive[len - 3] == 'x')
+		&& (archive[len - 2] == 'p')
+		&& (archive[len - 1] == 'm'))
+		return (0);
+	ft_putstr_fd("Error: Texture ", 2);
+	ft_putstr_fd(archive, 2);
+	ft_putendl_fd(" invalid file extension", 2);
+	return (1);
 }
 
-static int check_file_exists(char *archive)
+static int check_file(char *archive)
 {
 	int fd;
+	size_t	len;
 
 	fd = open(archive, O_RDONLY);
 	if (fd == -1)
@@ -41,7 +38,14 @@ static int check_file_exists(char *archive)
 		return (1);
 	}
 	close(fd);
-	return (0);
+	len = (int)ft_strlen(archive);
+	if((len > 4) && (archive[len - 4] == '.')
+		&& (archive[len - 3] == 'c')
+		&& (archive[len - 2] == 'u')
+		&& (archive[len - 1] == 'b'))
+		return (0);
+	ft_putendl_fd("Error: Invalid file extension", 2);
+	return (1);
 }
 
 static int	load_textures(char *archive, t_data *data)
@@ -77,19 +81,15 @@ static int	load_textures(char *archive, t_data *data)
 	if (i != 6 || !data->mapinfo->no_path || !data->mapinfo->so_path
 		|| !data->mapinfo->we_path || !data->mapinfo->ea_path)//añadir los colores en array????? es pregunta
 		return (ft_putendl_fd("Error: Missing information", 2), 1);
-	if (check_texture_exists(data->mapinfo->no_path) || check_texture_exists(data->mapinfo->so_path)
-		|| check_texture_exists(data->mapinfo->we_path) || check_texture_exists(data->mapinfo->ea_path))
+	if (check_texture(data->mapinfo->no_path) || check_texture(data->mapinfo->so_path)
+		|| check_texture(data->mapinfo->we_path) || check_texture(data->mapinfo->ea_path))
 		return (1);
 	return (0);
 }
 
 int	parsemap(char *archive, t_data *data)
 {	
-	if (check_file_extension(archive) || check_file_exists(archive))
-	{
-		return (1);
-	}
-	if (load_textures(archive, data))
+	if (check_file(archive) || load_textures(archive, data))
 	{
 		return (1);
 	}
