@@ -89,11 +89,7 @@ static int	load_textures(char *archive, t_data *data)
 
 int	parsemap(char *archive, t_data *data)
 {	
-	if (check_file(archive))
-	{
-		return (1);
-	}
-	if (load_textures(archive, data))
+	if (check_file(archive) || load_textures(archive, data))
 	{
 		return (1);
 	}
