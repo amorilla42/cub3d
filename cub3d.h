@@ -26,33 +26,26 @@
 
 typedef struct s_mapinfo
 {
-	int		res_width;
-	int		res_height;
-	char	*no_path;
-	char	*so_path;
-	char	*we_path;
-	char	*ea_path;
-	char	*s_path;
-	int		floor_color_R;
-	int		floor_color_G;
-	int		floor_color_B;
-	int		ceiling_color_R;
-	int		ceiling_color_G;
-	int		ceiling_color_B;
+	char	*no_path;			//north texture path
+	char	*so_path;			//south texture path
+	char	*we_path;			//west texture path
+	char	*ea_path;			//east texture path
+	int		floor_color_R;		//suelo color red
+	int		floor_color_G;		//suelo color green
+	int		floor_color_B;		//suelo color blue
+	int		ceiling_color_R;	//techo color red
+	int		ceiling_color_G;	//techo color green
+	int		ceiling_color_B;	//techo color blue
 }	t_mapinfo;
 
 typedef struct s_data
 {
 	mlx_t		*mlx;
-	void		*win;
-	int			win_height;
-	int			win_width;
-	t_mapinfo	*mapinfo;
-	char		**map;
-	//t_player	player;
-	//t_ray		ray;
-	int			**texture_pixels;
-	int			**textures;
+	void		*win;	//ventana pa algo del mlx???? no se sabe, si se tiene que quitar se quita a la chingada verga valiendo verga todo :v no mames wey
+	int			win_height; //altura de la ventana
+	int			win_width;	//ancho de la ventana
+	t_mapinfo	*mapinfo;	//informacion del mapa
+	char		**map;	//mapa matriz????
 }	t_data;
 
 
