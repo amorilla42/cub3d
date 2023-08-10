@@ -15,7 +15,7 @@ int	enter_map(char *archive, t_data *data)
 		ft_putendl_fd("Error: File does not exist", 2);
 		return (1);
 	}
-	line = get_next_line(fd);
+	line = get_next_line(fd); //WTF PORQUE LEE UN 100 AL PRINCIPIO DEL ARCHIVO????????????????????
 	while (line[0] != '1' && line[0] != '0')
 	{
 		free(line);
@@ -28,7 +28,7 @@ int	enter_map(char *archive, t_data *data)
 		line = get_next_line(fd);
 	}
 	data->map = ft_calloc(sizeof(char *) * (i + 1), 1);
-	ft_printf("i = %d\n", i);
+	printf("i = %d\n", i);
 	close(fd);
 	return (0);
 
