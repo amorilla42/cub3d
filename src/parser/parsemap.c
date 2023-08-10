@@ -16,9 +16,9 @@ static int check_texture(char *archive)
 	close(fd);
 	len = (int)ft_strlen(archive);
 	if((len > 4) && (archive[len - 4] == '.')
-		&& (archive[len - 3] == 'x')
-		&& (archive[len - 2] == 'p')
-		&& (archive[len - 1] == 'm'))
+		&& (archive[len - 3] == 'p')
+		&& (archive[len - 2] == 'n')
+		&& (archive[len - 1] == 'g'))
 		return (0);
 	ft_putstr_fd("Error: Texture ", 2);
 	ft_putstr_fd(archive, 2);
@@ -48,6 +48,27 @@ static int check_file(char *archive)
 	return (1);
 }
 
+static int	count_useful_lines(char *line, t_data *data)
+{
+	if(line[0] != '\n')
+	{
+		if (line[0] == 'N' && line[1] == 'O')
+			data->mapinfo->no_path = ft_substr(line, 3, ft_strlen(line)-4);
+		if (line[0] == 'S' && line[1] == 'O')
+			data->mapinfo->so_path = ft_substr(line, 3, ft_strlen(line)-4);
+		if (line[0] == 'W' && line[1] == 'E')
+			data->mapinfo->we_path = ft_substr(line, 3, ft_strlen(line)-4);
+		if (line[0] == 'E' && line[1] == 'A')
+			data->mapinfo->ea_path = ft_substr(line, 3, ft_strlen(line)-4);
+		if (line[0] == 'F' && line[1] == ' ')
+			data->mapinfo->floor_color_B = 3; //falta añdir los colores bien (parsecolor o algo asi)
+		if (line[0] == 'C' && line[1] == ' ')
+			data->mapinfo->ceiling_color_B = 4; //falta añdir los colores bien
+		return 1;
+	}
+	return 0;
+}
+
 static int	load_textures(char *archive, t_data *data)
 {
 	int fd;
@@ -59,30 +80,18 @@ static int	load_textures(char *archive, t_data *data)
 	line = get_next_line(fd);
 	while (line[0] != '1' && line[0] != '0')
 	{
-		if(line[0] != '\n')
-		{
-			if (line[0] == 'N' && line[1] == 'O')
-				data->mapinfo->no_path = ft_substr(line, 3, ft_strlen(line)-4);
-			if (line[0] == 'S' && line[1] == 'O')
-				data->mapinfo->so_path = ft_substr(line, 3, ft_strlen(line)-4);
-			if (line[0] == 'W' && line[1] == 'E')
-				data->mapinfo->we_path = ft_substr(line, 3, ft_strlen(line)-4);
-			if (line[0] == 'E' && line[1] == 'A')
-				data->mapinfo->ea_path = ft_substr(line, 3, ft_strlen(line)-4);
-			if (line[0] == 'F' && line[1] == ' ')
-				data->mapinfo->floor_color_B = 3;
-			if (line[0] == 'C' && line[1] == ' ')
-				data->mapinfo->ceiling_color_B = 4;
-			i++;
-		}
+		i += count_useful_lines(line, data);
 		free(line);
 		line = get_next_line(fd);
 	}
+	close(fd);
 	if (i != 6 || !data->mapinfo->no_path || !data->mapinfo->so_path
 		|| !data->mapinfo->we_path || !data->mapinfo->ea_path)//añadir los colores en array????? es pregunta
-		return (ft_putendl_fd("Error: Missing information", 2), 1);
-	if (check_texture(data->mapinfo->no_path) || check_texture(data->mapinfo->so_path)
-		|| check_texture(data->mapinfo->we_path) || check_texture(data->mapinfo->ea_path))
+		return (ft_putendl_fd("Error: Missing or too much information", 2), 1);
+	if (check_texture(data->mapinfo->no_path)
+		|| check_texture(data->mapinfo->so_path)
+		|| check_texture(data->mapinfo->we_path)
+		|| check_texture(data->mapinfo->ea_path))
 		return (1);
 	return (0);
 }
@@ -93,6 +102,7 @@ int	parsemap(char *archive, t_data *data)
 	{
 		return (1);
 	}
+	
 
 	printf("NO: %s\n", data->mapinfo->no_path);
 	printf("SO: %s\n", data->mapinfo->so_path);
