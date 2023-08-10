@@ -12,7 +12,7 @@ GNL_DIR	= libs/get_next_line/
 PARSER_DIR = src/parser/
 # =================================================================================
 
-PARSER_FILES = parsemap.c
+PARSER_FILES = parsemap.c save_map.c
 PARSER_SRCS  = $(addprefix $(PARSER_DIR), $(PARSER_FILES))
 
 GNL_FILES = get_next_line.c get_next_line_utils.c

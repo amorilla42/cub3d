@@ -102,7 +102,7 @@ int	parsemap(char *archive, t_data *data)
 	{
 		return (1);
 	}
-	
+	enter_map(archive, data);
 
 	printf("NO: %s\n", data->mapinfo->no_path);
 	printf("SO: %s\n", data->mapinfo->so_path);

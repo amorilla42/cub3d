@@ -53,6 +53,7 @@ typedef struct s_data
 //***    PARSER     ***//
 
 int	parsemap(char *archive, t_data *data);
+int	enter_map(char *archive, t_data *data);
 
 
 //***    UTILS ??????????    ***//
