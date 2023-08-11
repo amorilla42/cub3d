@@ -30,20 +30,18 @@ typedef struct s_mapinfo
 	char	*so_path;			//south texture path
 	char	*we_path;			//west texture path
 	char	*ea_path;			//east texture path
-	int		floor_color_R;		//suelo color red
-	int		floor_color_G;		//suelo color green
-	int		floor_color_B;		//suelo color blue
-	int		ceiling_color_R;	//techo color red
-	int		ceiling_color_G;	//techo color green
-	int		ceiling_color_B;	//techo color blue
+	int		floor_color_r;		//suelo color red
+	int		floor_color_g;		//suelo color green
+	int		floor_color_b;		//suelo color blue
+	int		ceiling_color_r;	//techo color red
+	int		ceiling_color_g;	//techo color green
+	int		ceiling_color_b;	//techo color blue
 }	t_mapinfo;
 
 typedef struct s_data
 {
 	mlx_t		*mlx;
-	void		*win;	//ventana pa algo del mlx???? no se sabe, si se tiene que quitar se quita a la chingada verga valiendo verga todo :v no mames wey
-	int			win_height; //altura de la ventana
-	int			win_width;	//ancho de la ventana
+	int			fd;		//file descriptor
 	t_mapinfo	*mapinfo;	//informacion del mapa
 	char		**map;	//mapa matriz????
 }	t_data;
@@ -54,6 +52,7 @@ typedef struct s_data
 
 int	parsemap(char *archive, t_data *data);
 int	enter_map(char *archive, t_data *data);
+int	load_file(char *file, t_data *data);
 
 
 //***    UTILS ??????????    ***//
