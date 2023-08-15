@@ -54,8 +54,8 @@ int	load_file(char *file, t_data *data);
 //***    UTILS ??????????    ***//
 
 void	press_key(mlx_key_data_t keydata, void	*game_data);
-void	free_and_exit(t_data *data, int exit_code_number);
-
+void	free_all(t_data *data);
+void	print_err_exit(t_data *data, char *str);
 
 
 
