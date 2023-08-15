@@ -18,7 +18,7 @@ static void    free_map_struct(t_data *data)
     free(data->mapinfo);
 }
 
-void    free_all(t_data *data)
+static void    free_all(t_data *data)
 {
     if (data->mlx)
     {
@@ -28,7 +28,9 @@ void    free_all(t_data *data)
     if (data->mapinfo)
 		free_map_struct(data);
 	if (data->map)
-		free_matrix(data);
+		free_map_matrix(data);/////TODO
+    if (data->file)
+        free_file_matrix(data);////TODO
 	if (data->fd)
 		close(data->fd);
     free(data);

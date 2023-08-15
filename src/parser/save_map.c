@@ -2,33 +2,37 @@
 
 #include "../../cub3d.h"
 
-int	load_file(char *file, t_data *data)
+void	load_file(char *file, t_data *data)
 {
-	char	tmp;
 	int		i;
 	int		j;
-
-	i = 0;
+	char	aux;
+	
 	j = 0;
-	while (read(data->fd, &tmp, 1) > 0)
+	i = 0;
+	while (read(data->fd, &aux, 1) > 0)
 	{
-		if (tmp == '\n')
+		if (aux == '\n')
 			i++;
 	}
 	close(data->fd);
-	data->in_cnt = malloc(sizeof(char *) * (i + 1));
-	if (!data-->in_cnt)
-		ft_errexit(data-, "Error\nNot enough memory available");
-	data->fd = open(data->in_route, O_RDONLY);
+	data->file = malloc(sizeof(char *) * (i + 1));
+	if (!data->file)
+		print_err_exit(data, "Error\nNot enough memory available");
+	data->fd = open(file, O_RDONLY);
 	while (j < i)
 	{
-		init->in_cnt[j] = get_next_line(init->in_fd);
+		data->file[j] = get_next_line(data->fd);
 		j++;
 	}
-	init->in_cnt[j] = NULL;
-	close(init->in_fd);
-	map_parser(init);
-	get_colors(init);
+	data->file[j] = NULL;
+	close(data->fd);
+	/*
+
+	map_parser(init);	//TODO
+	get_colors(init);	//TODO
+	
+	*/
 }
 
 
@@ -36,33 +40,33 @@ int	load_file(char *file, t_data *data)
 
 
 
-int	enter_map(char *archive, t_data *data)
+
+void	enter_map(char *archive, t_data *data)
 {
 	char	*line;
 	int		i;
+	int		j;
 
 	i = 0;
-	data->fd = open(archive, O_RDONLY);
+	j = 0;
 	if (data->fd == -1)
-	{
-		ft_putendl_fd("Error: File does not exist", 2);
-		return (1);
-	}
-	line = get_next_line(data->fd); //WTF PORQUE LEE UN 100 AL PRINCIPIO DEL ARCHIVO????????????????????
+		print_err_exit(data, "Error:\nMap file does not exist");
+	line = data->file[i];
 	while (line[0] != '1' && line[0] != '0')
 	{
 		free(line);
-		line = get_next_line(data->fd);
+		i++;
+		line = data->file[i];
 	}
 	while (line)
 	{
+		j++;
 		i++;
 		free(line);
-		line = get_next_line(fd);
+		line = data->file[i];
 	}
-	data->map = ft_calloc(sizeof(char *) * (i + 1), 1);
-	printf("i = %d\n", i);
-	close(fd);
-	return (0);
+	data->map = ft_calloc(sizeof(char *) * (j + 1), 1);
+	if (!data->map)
+		print_err_exit(data, "Error\nNot enough memory available");
 
 }

@@ -37,18 +37,18 @@ typedef struct s_mapinfo
 typedef struct s_data
 {
 	mlx_t		*mlx;
-	int			fd;		//file descriptor
-	t_mapinfo	*mapinfo;	//informacion del mapa
-	char		**map;	//mapa matriz????
-}	t_data;
+	int			fd;				//file descriptor
+	char 		**file;			//archivo entero guardado como matriz
+	t_mapinfo	*mapinfo;		//informacion del mapa
+	char		**map;			//mapa matriz
 
 
 
 //***    PARSER     ***//
 
 int	parsemap(char *archive, t_data *data);
-int	enter_map(char *archive, t_data *data);
-int	load_file(char *file, t_data *data);
+void	enter_map(char *archive, t_data *data);
+void	load_file(char *file, t_data *data);
 
 
 //***    UTILS ??????????    ***//

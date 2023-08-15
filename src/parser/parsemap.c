@@ -1,6 +1,6 @@
 #include "../../cub3d.h"
 
-static int check_texture(char *archive)
+static int check_texture(char *archive, t_data *data)
 {
 	int fd;
 	size_t	len;
@@ -8,10 +8,10 @@ static int check_texture(char *archive)
 	fd = open(archive, O_RDONLY);
 	if (fd == -1)
 	{
-		ft_putstr_fd("Error: Texture ", 2);
+		ft_putstr_fd("Error:\nTexture ", 2);
 		ft_putstr_fd(archive, 2);
-		ft_putendl_fd(" does not exist", 2);
-		return (1);
+		print_err_exit(data, " does not exist")
+		return (1);// es posible quitarlo????
 	}
 	close(fd);
 	len = (int)ft_strlen(archive);
@@ -19,11 +19,11 @@ static int check_texture(char *archive)
 		&& (archive[len - 3] == 'p')
 		&& (archive[len - 2] == 'n')
 		&& (archive[len - 1] == 'g'))
-		return (0);
-	ft_putstr_fd("Error: Texture ", 2);
+		return (0);// este renta que esté
+	ft_putstr_fd("Error:\nTexture ", 2);
 	ft_putstr_fd(archive, 2);
-	ft_putendl_fd(" invalid file extension", 2);
-	return (1);
+	print_err_exit(data, " invalid file extension")
+	return (1);// es posible quitarlo????
 }
 
 static int check_file(char *archive)
@@ -71,28 +71,28 @@ static int	count_useful_lines(char *line, t_data *data)
 
 static int	load_textures(char *archive, t_data *data)
 {
-	int fd;
 	char *line;
 	int i;
+	int j;
 
 	i = 0;
-	fd = open(archive, O_RDONLY);
-	line = get_next_line(fd);
+	j = 0;
+	line = data->file[j];
 	while (line && line[0] != '1' && line[0] != '0')
 	{
 		i += count_useful_lines(line, data);
 		free(line);
-		line = get_next_line(fd);
+		j++;
+		line = data->file[j];
 	}
-	close(fd);
 	free(line);
 	if (i != 6 || !data->mapinfo->no_path || !data->mapinfo->so_path
 		|| !data->mapinfo->we_path || !data->mapinfo->ea_path)//añadir los colores en array????? es pregunta
-		return (ft_putendl_fd("Error: Missing or too much information", 2), 1);
-	if (check_texture(data->mapinfo->no_path)
-		|| check_texture(data->mapinfo->so_path)
-		|| check_texture(data->mapinfo->we_path)
-		|| check_texture(data->mapinfo->ea_path))
+		print_err_exit(data, "Error:\nMissing or too much information");
+	if (check_texture(data->mapinfo->no_path, data)
+		|| check_texture(data->mapinfo->so_path, data)
+		|| check_texture(data->mapinfo->we_path, data)
+		|| check_texture(data->mapinfo->ea_path, data))
 		return (1);
 	return (0);
 }
@@ -100,10 +100,8 @@ static int	load_textures(char *archive, t_data *data)
 int	parsemap(char *archive, t_data *data)
 {
 	data->fd = open(archive, O_RDONLY);
-	if (load_file(archive, data))
-	{
-		return (1);
-	}
+	load_file(archive, data);
+
 
 
 
