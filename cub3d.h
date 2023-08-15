@@ -30,12 +30,8 @@ typedef struct s_mapinfo
 	char	*so_path;			//south texture path
 	char	*we_path;			//west texture path
 	char	*ea_path;			//east texture path
-	int		floor_color_r;		//suelo color red
-	int		floor_color_g;		//suelo color green
-	int		floor_color_b;		//suelo color blue
-	int		ceiling_color_r;	//techo color red
-	int		ceiling_color_g;	//techo color green
-	int		ceiling_color_b;	//techo color blue
+	char	*floor_color_rgb;	//suelo color 
+	char	*ceiling_color_r;	//techo color 
 }	t_mapinfo;
 
 typedef struct s_data

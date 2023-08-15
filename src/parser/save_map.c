@@ -30,24 +30,29 @@ int	load_file(char *file, t_data *data)
 	map_parser(init);
 	get_colors(init);
 }
+
+
+
+
+
+
 int	enter_map(char *archive, t_data *data)
 {
-	int		fd;
 	char	*line;
 	int		i;
 
 	i = 0;
-	fd = open(archive, O_RDONLY);
-	if (fd == -1)
+	data->fd = open(archive, O_RDONLY);
+	if (data->fd == -1)
 	{
 		ft_putendl_fd("Error: File does not exist", 2);
 		return (1);
 	}
-	line = get_next_line(fd); //WTF PORQUE LEE UN 100 AL PRINCIPIO DEL ARCHIVO????????????????????
+	line = get_next_line(data->fd); //WTF PORQUE LEE UN 100 AL PRINCIPIO DEL ARCHIVO????????????????????
 	while (line[0] != '1' && line[0] != '0')
 	{
 		free(line);
-		line = get_next_line(fd);
+		line = get_next_line(data->fd);
 	}
 	while (line)
 	{
