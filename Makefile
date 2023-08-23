@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jdomingu <jdomingu@student.42malaga.com>   +#+  +:+       +#+         #
+#    By: amorilla <amorilla@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/15 00:25:28 by jdomingu          #+#    #+#              #
-#    Updated: 2023/08/22 18:16:26 by jdomingu         ###   ########.fr        #
+#    Updated: 2023/08/23 18:07:16 by amorilla         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,13 +28,10 @@ RENDER_DIR = src/render/
 MOVEMENT_DIR = src/movement/
 # =================================================================================
 
-PARSER_FILES = parsemap.c save_map.c
-PARSER_SRCS  = $(addprefix $(PARSER_DIR), $(PARSER_FILES))
-
 GNL_FILES = get_next_line.c get_next_line_utils.c
 GNL_SRCS  = $(addprefix $(GNL_DIR), $(GNL_FILES))
 
-PARSER_FILES = parse_map.c
+PARSER_FILES = parsemap.c save_map.c
 PARSER_SRCS  = $(addprefix $(PARSER_DIR), $(PARSER_FILES))
 
 RENDER_FILES = raycasting.c textures.c

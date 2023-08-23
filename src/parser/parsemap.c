@@ -1,4 +1,4 @@
-#include "../../cub3d.h"
+#include "cub3d.h"
 
 static int check_texture(char *archive, t_data *data)
 {
@@ -10,7 +10,7 @@ static int check_texture(char *archive, t_data *data)
 	{
 		ft_putstr_fd("Error:\nTexture ", 2);
 		ft_putstr_fd(archive, 2);
-		print_err_exit(data, " does not exist")
+		print_err_exit(data, " does not exist");
 		return (1);// es posible quitarlo????
 	}
 	close(fd);
@@ -22,7 +22,7 @@ static int check_texture(char *archive, t_data *data)
 		return (0);// este renta que esté
 	ft_putstr_fd("Error:\nTexture ", 2);
 	ft_putstr_fd(archive, 2);
-	print_err_exit(data, " invalid file extension")
+	print_err_exit(data, " invalid file extension");
 	return (1);// es posible quitarlo????
 }
 

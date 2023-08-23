@@ -72,20 +72,13 @@ typedef struct s_raycast
 
 typedef struct s_mapinfo
 {
-	int				res_width;
-	int				res_height;
-	char			*no_path;
-	char			*so_path;
-	char			*we_path;
-	char			*ea_path;
-	char			*s_path;
-	int				floor_color_r;
-	int				floor_color_g;
-	int				floor_color_b;
+	char	*no_path;			//north texture path
+	char	*so_path;			//south texture path
+	char	*we_path;			//west texture path
+	char	*ea_path;			//east texture path
+	char	*floor_color_rgb;	//suelo color 
+	char	*ceiling_color_rgb;	//techo color 
 	unsigned int	hex_floor;
-	int				ceiling_color_r;
-	int				ceiling_color_g;
-	int				ceiling_color_b;
 	unsigned int	hex_ceiling;
 }	t_map_info; //TODO
 
