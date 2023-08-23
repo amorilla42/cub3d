@@ -67,7 +67,7 @@ static void	print_map(t_data *data, t_ray *ray, int x)
 		tex->tex_pos += tex->step;
 		texture_index = get_texture_index(ray);
 		pixels = &data->textures[texture_index]
-			->pixels[TEX_SIZE * tex->tex_y * 4 + tex->tex_x * 4]; //TODO
+			->pixels[TEX_SIZE * tex->tex_y * 4 + tex->tex_x * 4];
 		color = pixels[0] << 24 | pixels[1] << 16 | pixels[2] << 8 | pixels[3];
 		mlx_put_pixel(data->game_img, x, y, color);
 	}

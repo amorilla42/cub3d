@@ -1,31 +1,47 @@
 #include "cub3d.h"
 
-//TODO: LO COMENTADO DA SEG. FAULT
-/*static void	free_map_info(char ***map, t_map_info **map_info)
+static void    free_map_struct(t_data *data)
+{
+	t_map_info	*map_info;
 
+	map_info = data->map_info;
+    if(map_info->no_path)
+        free(map_info->no_path);
+    if(map_info->so_path)
+        free(map_info->so_path);
+    if(map_info->we_path)
+        free(map_info->we_path);
+    if(map_info->ea_path)
+        free(map_info->ea_path);
+    if(map_info->floor_color_rgb)
+        free(map_info->floor_color_rgb);
+    if(map_info->ceiling_color_rgb)
+        free(map_info->ceiling_color_rgb);
+    free(map_info);
+}
+
+static void	free_file_and_map_info(t_data *data)
 {
 	int	i;
 
 	i = -1;
-	if (*map)
+	if (data->fd)
+		close(data->fd);
+	if (data->file)
 	{
-		while (++i < (*map_info)->res_width)
-			free((*map)[i]);
-		free(*map);
+		while (data->file[++i])
+			free(data->file[i]);
+		free(data->file);
 	}
-	if ((*map_info)->no_path)
-		free((*map_info)->no_path);
-	if ((*map_info)->so_path)
-		free((*map_info)->so_path);
-	if ((*map_info)->ea_path)
-		free((*map_info)->ea_path);
-	if ((*map_info)->we_path)
-		free((*map_info)->we_path);
-	if ((*map_info)->s_path)
-		free((*map_info)->s_path);
-	if (*map_info)
-		free(*map_info);
-}*/
+	i = -1;
+	if (data->map)
+	{
+		while (data->map[++i])
+			free(data->map[i]);
+		free(data->map);
+	}
+	free_map_struct(data);
+}
 
 void	free_and_exit(t_data *data, int exit_code_number)
 {
@@ -43,7 +59,7 @@ void	free_and_exit(t_data *data, int exit_code_number)
 		free(data->ray);
 	if (data->tex_info)
 		free(data->tex_info);
-	//free_map_info(&data->map, &data->map_info);
+	free_file_and_map_info(data);
 	if (data->game_img)
 		mlx_delete_image(data->mlx, data->game_img);
 	if (data->bg_img)
@@ -55,47 +71,3 @@ void	free_and_exit(t_data *data, int exit_code_number)
 	free(data);
 	exit(exit_code_number);
 }
-
-static void    free_map_struct(t_data *data)
-{
-    if(data->mapinfo->no_path)
-    if(data->mapinfo->no_path)
-        free(data->mapinfo->no_path);
-    if(data->mapinfo->so_path)
-        free(data->mapinfo->so_path);
-    if(data->mapinfo->we_path)
-        free(data->mapinfo->we_path);
-    if(data->mapinfo->ea_path)
-        free(data->mapinfo->ea_path);
-    if(data->mapinfo->floor_color_rgb)
-        free(data->mapinfo->floor_color_rgb);
-    if(data->mapinfo->ceiling_color_rgb)
-        free(data->mapinfo->ceiling_color_rgb);
-    free(data->mapinfo);
-}
-
-static void    free_all(t_data *data)
-{
-    if (data->mlx)
-    {
-        mlx_close_window(data->mlx);
-        mlx_terminate(data->mlx);
-    }
-    if (data->mapinfo)
-		free_map_struct(data);
-	if (data->map)
-		free_map_matrix(data);/////TODO
-    if (data->file)
-        free_file_matrix(data);////TODO
-	if (data->fd)
-		close(data->fd);
-    free(data);
-}
-
-void	print_err_exit(t_data *data, char *str)
-{
-	free_all(data);
-	ft_putstr_fd(str, 2);
-	exit(1);
-}
-

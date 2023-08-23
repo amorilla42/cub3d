@@ -25,10 +25,13 @@
 # define MOV_SPEED 0.035
 
 /* =============================== ERROR_MSG =============================== */
-# define ARGS_ERR "Error: Wrong number of arguments"
-# define MALLOC_ERR "Error: Memory was not allocated"
-# define LOAD_ERR "Error: Unable to load resource"
-# define INVALID_MAP "Error: Invalid map"
+# define ARGS_ERR "Error\nWrong number of arguments"
+# define MALLOC_ERR "Error\nMemory was not allocated"
+# define INFO_ERR "Error\nMissing or too much information"
+# define FILE_ERR "Error\nFile does not exist"
+# define LOAD_ERR "Error\nUnable to load resource"
+# define EXTENSION_ERR "Error\nInvalid file extension"
+# define INVALID_MAP "Error\nInvalid map"
 
 /* ================================ STRUCTS ================================ */
 typedef struct s_texture_info
@@ -70,7 +73,7 @@ typedef struct s_raycast
 	double	wall_x;
 }	t_ray;
 
-typedef struct s_mapinfo
+typedef struct s_map_info
 {
 	char	*no_path;			//north texture path
 	char	*so_path;			//south texture path
@@ -80,7 +83,7 @@ typedef struct s_mapinfo
 	char	*ceiling_color_rgb;	//techo color 
 	unsigned int	hex_floor;
 	unsigned int	hex_ceiling;
-}	t_map_info; //TODO
+}	t_map_info;
 
 typedef struct s_data
 {
@@ -93,11 +96,15 @@ typedef struct s_data
 	t_player		*player;
 	mlx_texture_t	*textures[4];
 	t_texture_info	*tex_info;
+	int				fd;		//file descriptor
+	char 			**file;	//archivo entero guardado como matriz
 }	t_data;
 
 /* ================================= PARSER ================================= */
 
-int		parse_map(char *archive, t_data *data);
+void	parsemap(char *archive, t_data *data);
+void	enter_map(t_data *data);
+void	load_file(char *file, t_data *data);
 
 /* ================================ MOVEMENT ================================ */
 

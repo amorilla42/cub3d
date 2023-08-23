@@ -6,13 +6,13 @@
 #    By: amorilla <amorilla@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/15 00:25:28 by jdomingu          #+#    #+#              #
-#    Updated: 2023/08/23 18:07:16 by amorilla         ###   ########.fr        #
+#    Updated: 2023/08/23 18:54:26 by amorilla         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 NAME	= cub3D
-CFLAGS	= -Wall -Wextra -Werror -D BUFFER_SIZE=42 -g -fsanitize=address
+CFLAGS	= -Wall -Wextra -Werror -D BUFFER_SIZE=42 -g #-fsanitize=address
 HEADERS = -I $(SRC_DIR) -I $(GNL_DIR) -I $(LIBMLX)/include -I $(LIBFT)
 LIBS_MAC = $(LIBFT)/libft.a $(LIBMLX)/libmlx42.a -lglfw -L /Users/${USER}/.brew/opt/glfw/lib/
 #LIBS_LINUX = $(LIBFT)/libft.a $(LIBMLX)/libmlx42.a -ldl -lglfw -pthread -lm
