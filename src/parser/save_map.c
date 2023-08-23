@@ -54,7 +54,6 @@ void	enter_map(char *archive, t_data *data)
 	line = data->file[i];
 	while (line[0] != '1' && line[0] != '0')
 	{
-		free(line);
 		i++;
 		line = data->file[i];
 	}
@@ -62,7 +61,6 @@ void	enter_map(char *archive, t_data *data)
 	{
 		j++;
 		i++;
-		free(line);
 		line = data->file[i];
 	}
 	data->map = ft_calloc(sizeof(char *) * (j + 1), 1);
