@@ -46,54 +46,125 @@ static void check_file(t_data *data, char *archive)
 	}
 }
 
-static int	count_useful_lines(char *line, t_data *data)
+static void	check_already_loaded(t_data *data, int option)
 {
-	if(line[0] != '\n')
+	if (data->map_info->no_path && option == NORTH)
 	{
-		if (line[0] == 'N' && line[1] == 'O')
-			data->map_info->no_path = ft_substr(line, 3, ft_strlen(line)-4);
-		if (line[0] == 'S' && line[1] == 'O')
-			data->map_info->so_path = ft_substr(line, 3, ft_strlen(line)-4);
-		if (line[0] == 'W' && line[1] == 'E')
-			data->map_info->we_path = ft_substr(line, 3, ft_strlen(line)-4);
-		if (line[0] == 'E' && line[1] == 'A')
-			data->map_info->ea_path = ft_substr(line, 3, ft_strlen(line)-4);
-		/*
-		if (line[0] == 'F' && line[1] == ' ')
-			data->mapinfo->floor_color_b = 3; //falta añdir los colores bien (parsecolor o algo asi) hexadecimal????
-		if (line[0] == 'C' && line[1] == ' ')
-			data->mapinfo->ceiling_color_b = 4; //falta añdir los colores bien
-		*/
-		return (1);
-	}
-	return (0);
-}
-
-static void	load_textures(t_data *data)
-{
-	char	*line;
-	int		i;
-	int		j;
-
-	i = 0;
-	j = 0;
-	line = data->file[j];
-	while (line && line[0] != '1' && line[0] != '0')
-	{
-		i += count_useful_lines(line, data);
-		line = data->file[++j];
-	}
-	if (i != 6 || !data->map_info->no_path || !data->map_info->so_path
-		|| !data->map_info->we_path || !data->map_info->ea_path) //añadir los colores en array????? es pregunta
-	{
-		ft_putstr_fd(INFO_ERR, STDERR_FILENO);
+		ft_putendl_fd(DUPLICATE_ERR, STDERR_FILENO);
 		free_and_exit(data, EXIT_FAILURE);
 	}
-	check_texture(data->map_info->no_path, data);
-	check_texture(data->map_info->so_path, data);
-	check_texture(data->map_info->we_path, data);
-	check_texture(data->map_info->ea_path, data);
+	else if (data->map_info->we_path && option == WEST)
+	{
+		ft_putendl_fd(DUPLICATE_ERR, STDERR_FILENO);
+		free_and_exit(data, EXIT_FAILURE);
+	}
+	else if (data->map_info->ea_path && option == EAST)
+	{
+		ft_putendl_fd(DUPLICATE_ERR, STDERR_FILENO);
+		free_and_exit(data, EXIT_FAILURE);
+	}
+	else if (data->map_info->so_path && option == SOUTH)
+	{
+		ft_putendl_fd(DUPLICATE_ERR, STDERR_FILENO);
+		free_and_exit(data, EXIT_FAILURE);
+	}
 }
+
+static void	load_textures(t_data *data, char *line)
+{
+	if (line[0] == 'N' && line[1] == 'O')
+	{
+		check_already_loaded(data, NORTH);
+		data->map_info->no_path = ft_strtrim(line + 2, SPECIAL_CHARS);
+	}
+	else if (line[0] == 'S' && line[1] == 'O')
+	{
+		check_already_loaded(data, SOUTH);
+		data->map_info->so_path = ft_strtrim(line + 2, SPECIAL_CHARS);
+	}
+	else if (line[0] == 'W' && line[1] == 'E')
+	{
+		check_already_loaded(data, WEST);
+		data->map_info->we_path = ft_strtrim(line + 2, SPECIAL_CHARS);
+	}
+	else if (line[0] == 'E' && line[1] == 'A')
+	{
+		check_already_loaded(data, EAST);
+		data->map_info->ea_path = ft_strtrim(line + 2, SPECIAL_CHARS);
+	}
+}
+
+static void	load_color(t_data *data, char *line)
+{
+	char	*aux;
+	char	**aux2;
+
+	// 1: trim de line+1 y guardar en aux
+	// 2  split de aux por ',' y guardar en aux2
+	// 3: free aux
+	// 4: trim de cada posicion de aux2
+	// 5: hacerle atoi de cada posicion de aux2 y mirar si es de 0 a 255
+	// 6: convertir a hexadecimal cada posicion de aux2 y juntarlo en un unico valor?????
+	// 7: guardar en data->map_info->hex_floor o hex_ceiling
+	// 8: free aux2
+	
+	if (line[0] == 'C')
+	{
+		check_already_loaded(data, CEILING);
+		aux = ft_strtrim(line + 1, SPECIAL_CHARS);
+	}
+	else if (line[0] == 'F')
+	{
+		check_already_loaded(data, FLOOR);
+		data->map_info->floor_color_rgb = ft_strtrim(line + 1, SPECIAL_CHARS);
+	}
+}
+
+
+static int	load_map_params(t_data *data, char *line)
+{
+	int		i;
+	char	*aux;
+
+	i = 0;
+	if (line && line[0] != '\n')
+	{
+		aux = ft_strtrim(line, SPECIAL_CHARS);
+		load_textures(data, aux);
+		load_color(data, aux);
+		free(aux);
+	}
+	return (1);
+}
+
+
+
+
+
+
+static void true_parser(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (data->file[i])
+	{
+		if (load_map_params(data, data->file[i]))
+		{
+			i++;
+			continue ;
+		}
+		if (load_map(data, i))
+			break ;
+		i++;
+
+	}
+	
+}
+
+
+
+
 
 void	parsemap(char *archive, t_data *data)
 {

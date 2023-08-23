@@ -20,9 +20,13 @@
 # define SOUTH 1
 # define EAST 2
 # define WEST 3
+# define CEILING 4
+# define FLOOR 5
 
 # define ROT_SPEED 0.015
 # define MOV_SPEED 0.035
+
+# define SPECIAL_CHARS "\t\f\r\n\v "
 
 /* =============================== ERROR_MSG =============================== */
 # define ARGS_ERR "Error\nWrong number of arguments"
@@ -32,6 +36,7 @@
 # define LOAD_ERR "Error\nUnable to load resource"
 # define EXTENSION_ERR "Error\nInvalid file extension"
 # define INVALID_MAP "Error\nInvalid map"
+# define DUPLICATE_ERR "Error\nDuplicated information"
 
 /* ================================ STRUCTS ================================ */
 typedef struct s_texture_info
