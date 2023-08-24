@@ -2,25 +2,25 @@
 
 static void	init_textures(t_data *data)
 {
-	data->textures[NORTH] = mlx_load_png("assets/textures/bluestone.png"); //TODO
+	data->textures[NORTH] = mlx_load_png(data->map_info->no_path);
 	if (!data->textures[NORTH])
 	{
 		ft_putendl_fd(LOAD_ERR, STDERR_FILENO);
 		free_and_exit(data, EXIT_SUCCESS);
 	}
-	data->textures[SOUTH] = mlx_load_png("assets/textures/eagle.png"); //TODO
+	data->textures[SOUTH] = mlx_load_png(data->map_info->so_path);
 	if (!data->textures[SOUTH])
 	{
 		ft_putendl_fd(LOAD_ERR, STDERR_FILENO);
 		free_and_exit(data, EXIT_SUCCESS);
 	}
-	data->textures[EAST] = mlx_load_png("assets/textures/purplestone.png"); //TODO
+	data->textures[EAST] = mlx_load_png(data->map_info->ea_path);
 	if (!data->textures[EAST])
 	{
 		ft_putendl_fd(LOAD_ERR, STDERR_FILENO);
 		free_and_exit(data, EXIT_SUCCESS);
 	}
-	data->textures[WEST] = mlx_load_png("assets/textures/redbrick.png"); //TODO
+	data->textures[WEST] = mlx_load_png(data->map_info->we_path);
 	if (!data->textures[WEST])
 	{
 		ft_putendl_fd(LOAD_ERR, STDERR_FILENO);

@@ -14,10 +14,6 @@ void	clean_img(t_data *data)
 	}
 }
 
-/* 
-	0xff00ffff = data->mapinfo->hex_ceiling
-	0x00ffffff = data->mapinfo->hex_floor
-*/
 void	print_ceiling_floor(t_data *data)
 {
 	int	x;
@@ -30,9 +26,9 @@ void	print_ceiling_floor(t_data *data)
 		while (++x < WIDTH)
 		{
 			if (y < HEIGHT / 2)
-				mlx_put_pixel(data->bg_img, x, y, 0xff00ffff); //TODO
+				mlx_put_pixel(data->bg_img, x, y, data->map_info->hex_ceiling);
 			else
-				mlx_put_pixel(data->bg_img, x, y, 0x00ffffff); //TODO
+				mlx_put_pixel(data->bg_img, x, y, data->map_info->hex_floor);
 		}
 	}
 }

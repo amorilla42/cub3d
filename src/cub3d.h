@@ -37,6 +37,7 @@
 # define EXTENSION_ERR "Error\nInvalid file extension"
 # define INVALID_MAP "Error\nInvalid map"
 # define DUPLICATE_ERR "Error\nDuplicated information"
+# define COLOR_ERR "Error\nColor must be in range [0, 255]"
 
 /* ================================ STRUCTS ================================ */
 typedef struct s_texture_info
@@ -107,9 +108,13 @@ typedef struct s_data
 
 /* ================================= PARSER ================================= */
 
-void	parsemap(char *archive, t_data *data);
-void	enter_map(t_data *data);
-void	load_file(char *file, t_data *data);
+void			parsemap(char *archive, t_data *data);
+void			enter_map(t_data *data);
+void			load_file(char *file, t_data *data);
+unsigned int	convert_to_hex(int r, int g, int b);
+void			load_color(t_data *data, char *line);
+void			load_textures(t_data *data, char *line);
+void			check_already_loaded(t_data *data, int option);
 
 /* ================================ MOVEMENT ================================ */
 
@@ -126,6 +131,7 @@ void	clean_img(t_data *data);
 /* ================================= UTILS ================================= */
 void	init_data(t_data *data);
 void	free_and_exit(t_data *data, int exit_code_number);
+void	free_colors(char **colors, int *rgb);
 
 extern int	map[12][12]; //TODO
 

@@ -71,3 +71,19 @@ void	free_and_exit(t_data *data, int exit_code_number)
 	free(data);
 	exit(exit_code_number);
 }
+
+void	free_colors(char **colors, int *rgb)
+{
+	if (colors)
+	{
+		if (colors[0])
+			free(colors[0]);
+		if (colors[1])
+			free(colors[1]);
+		if (colors[2])
+			free(colors[2]);
+		free(colors);
+	}
+	if (rgb)
+		free(rgb);
+}
