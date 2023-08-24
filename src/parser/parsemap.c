@@ -39,6 +39,20 @@ static int	load_map_params(t_data *data, char *line)
 	return (1);
 }
 
+static void	check_all_loaded(t_data *data)
+{
+	if (!data->map_info->no_path
+		|| !data->map_info->we_path
+		|| !data->map_info->ea_path
+		|| !data->map_info->so_path
+		|| !data->map_info->floor_color_rgb
+		|| !data->map_info->ceiling_color_rgb)
+	{
+		ft_putendl_fd(INFO_ERR, STDERR_FILENO);
+		free_and_exit(data, EXIT_FAILURE);
+	}
+}
+
 void	parsemap(char *archive, t_data *data)
 {
 	int	i;
@@ -54,8 +68,9 @@ void	parsemap(char *archive, t_data *data)
 			i++;
 			continue ;
 		}
-		//if (load_map(data, i))
-		//	break ;
+		if (load_map(data, i))
+			break ;
 		i++;
 	}
+	check_all_loaded(data);
 }
