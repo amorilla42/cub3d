@@ -38,6 +38,7 @@
 # define INVALID_MAP "Error\nInvalid map"
 # define DUPLICATE_ERR "Error\nDuplicated information"
 # define COLOR_ERR "Error\nColor must be in range [0, 255]"
+# define PLAYER_ERR "Error\nIssues with player position"
 
 /* ================================ STRUCTS ================================ */
 typedef struct s_texture_info
@@ -81,20 +82,21 @@ typedef struct s_raycast
 
 typedef struct s_map_info
 {
-	char	*no_path;			//north texture path
-	char	*so_path;			//south texture path
-	char	*we_path;			//west texture path
-	char	*ea_path;			//east texture path
-	char	*floor_color_rgb;	//suelo color 
-	char	*ceiling_color_rgb;	//techo color 
+	char			*no_path;			//north texture path
+	char			*so_path;			//south texture path
+	char			*we_path;			//west texture path
+	char			*ea_path;			//east texture path
 	unsigned int	hex_floor;
 	unsigned int	hex_ceiling;
+	int				floor_color_set;
+	int				ceiling_color_set;
+	int				height;
+	int				width;
 }	t_map_info;
 
 typedef struct s_data
 {
 	mlx_t			*mlx;
-	char			**map;
 	t_map_info		*map_info;
 	mlx_image_t		*game_img;
 	mlx_image_t		*bg_img;
@@ -104,16 +106,20 @@ typedef struct s_data
 	t_texture_info	*tex_info;
 	int				fd;		//file descriptor
 	char 			**file;	//archivo entero guardado como matriz
+	char			**map;
+	int				row;
+	int				col;
+	int				aux_idx;
 }	t_data;
 
 /* ================================= PARSER ================================= */
 
 void			parsemap(char *archive, t_data *data);
-void			enter_map(t_data *data);
+int				load_map(t_data *data, int i);
 void			load_file(char *file, t_data *data);
 unsigned int	convert_to_hex(int r, int g, int b);
-void			load_color(t_data *data, char *line);
-void			load_textures(t_data *data, char *line);
+int				load_color(t_data *data, char *line);
+int				load_textures(t_data *data, char *line);
 void			check_already_loaded(t_data *data, int option);
 
 /* ================================ MOVEMENT ================================ */

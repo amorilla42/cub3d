@@ -30,7 +30,7 @@ static void	calculate_heights(t_ray *ray)
 		ray->draw_end = HEIGHT - 1;
 }
 
-static void	execute_dda(t_ray *ray)
+static void	execute_dda(t_data *data, t_ray *ray)
 {
 	int		hit;
 
@@ -49,7 +49,7 @@ static void	execute_dda(t_ray *ray)
 			ray->map_y += ray->step_y;
 			ray->side = 1;
 		}
-		if (map[ray->map_x][ray->map_y] > 0) //TODO //Da aquí buffer overflow usando fsanitize=address
+		if (data->map[ray->map_x][ray->map_y] > 0) //TODO //Da aquí buffer overflow usando fsanitize=address
 			hit = 1;
 	}
 }
@@ -106,7 +106,7 @@ void	render_game(t_data *data)
 	while (++x < WIDTH)
 	{
 		set_raycast_info(data, x);
-		execute_dda(data->ray);
+		execute_dda(data, data->ray);
 		calculate_heights(data->ray);
 		textures_calculation(data, data->ray, data->player, x);
 	}

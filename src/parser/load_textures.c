@@ -29,38 +29,39 @@ void	check_already_loaded(t_data *data, int option)
 		|| (data->map_info->we_path && option == WEST)
 		|| (data->map_info->ea_path && option == EAST)
 		|| (data->map_info->so_path && option == SOUTH)
-		|| (data->map_info->floor_color_rgb && option == FLOOR)
-		|| (data->map_info->ceiling_color_rgb && option == CEILING))
+		|| ((data->map_info->floor_color_set > 0) && option == FLOOR)
+		|| ((data->map_info->ceiling_color_set > 0) && option == CEILING))
 	{
 		ft_putendl_fd(DUPLICATE_ERR, STDERR_FILENO);
 		free_and_exit(data, EXIT_FAILURE);
 	}
 }
 
-void	load_textures(t_data *data, char *line)
+int	load_textures(t_data *data, char *line)
 {
 	if (line[0] == 'N' && line[1] == 'O')
 	{
 		check_already_loaded(data, NORTH);
 		data->map_info->no_path = ft_strtrim(line + 2, SPECIAL_CHARS);
-		check_texture(data->map_info->no_path, data);
+		return (check_texture(data->map_info->no_path, data), 1);
 	}
 	else if (line[0] == 'S' && line[1] == 'O')
 	{
 		check_already_loaded(data, SOUTH);
 		data->map_info->so_path = ft_strtrim(line + 2, SPECIAL_CHARS);
-		check_texture(data->map_info->so_path, data);
+		return (check_texture(data->map_info->so_path, data), 1);
 	}
 	else if (line[0] == 'W' && line[1] == 'E')
 	{
 		check_already_loaded(data, WEST);
 		data->map_info->we_path = ft_strtrim(line + 2, SPECIAL_CHARS);
-		check_texture(data->map_info->we_path, data);
+		return (check_texture(data->map_info->we_path, data), 1);
 	}
 	else if (line[0] == 'E' && line[1] == 'A')
 	{
 		check_already_loaded(data, EAST);
 		data->map_info->ea_path = ft_strtrim(line + 2, SPECIAL_CHARS);
-		check_texture(data->map_info->ea_path, data);
+		return (check_texture(data->map_info->ea_path, data), 1);
 	}
+	return (0);
 }

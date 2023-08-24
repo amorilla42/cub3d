@@ -25,18 +25,18 @@ static void check_file(t_data *data, char *archive)
 
 static int	load_map_params(t_data *data, char *line)
 {
-	int		i;
 	char	*aux;
 
-	i = 0;
-	if (line && line[0] != '\n')
+	aux = line;
+	while (*aux && *aux != '\n')
 	{
-		aux = ft_strtrim(line, SPECIAL_CHARS);
-		load_textures(data, aux);
-		load_color(data, aux);
-		free(aux);
+		while (ft_strchr(SPECIAL_CHARS, *aux))
+			aux++;
+		if (load_textures(data, aux))
+			return (1);
+		aux++;
 	}
-	return (1);
+	return (0);
 }
 
 static void	check_all_loaded(t_data *data)
@@ -45,12 +45,28 @@ static void	check_all_loaded(t_data *data)
 		|| !data->map_info->we_path
 		|| !data->map_info->ea_path
 		|| !data->map_info->so_path
-		|| !data->map_info->floor_color_rgb
-		|| !data->map_info->ceiling_color_rgb)
+		|| (data->map_info->floor_color_set != 1)
+		|| (data->map_info->ceiling_color_set != 1))
 	{
 		ft_putendl_fd(INFO_ERR, STDERR_FILENO);
 		free_and_exit(data, EXIT_FAILURE);
 	}
+}
+
+static int	load_colors(t_data *data, char *line)
+{
+	char *tmp;
+
+	tmp = line;
+	while (*tmp && *tmp != '\n')
+	{
+		while (ft_strchr(SPECIAL_CHARS, *tmp))
+			tmp++;
+		if (load_color(data, tmp))
+			return (1);
+		tmp++;
+	}
+	return (0);
 }
 
 void	parsemap(char *archive, t_data *data)
@@ -68,7 +84,12 @@ void	parsemap(char *archive, t_data *data)
 			i++;
 			continue ;
 		}
-		if (load_map(data, i))
+		else if (load_colors(data, data->file[i]))
+		{
+			i++;
+			continue ;
+		}
+		else if (load_map(data, i))
 			break ;
 		i++;
 	}

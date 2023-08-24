@@ -70,7 +70,7 @@ static void	convert_str_to_rgb(t_data *data, char **colors, int *rgb)
 }
 
 
-void	load_color(t_data *data, char *line)
+int	load_color(t_data *data, char *line)
 {
 	char	**colors;
 	int		*rgb;
@@ -83,6 +83,8 @@ void	load_color(t_data *data, char *line)
 		convert_str_to_rgb(data, colors, rgb);
 		data->map_info->hex_ceiling = convert_to_hex(rgb[0], rgb[1], rgb[2]);
 		free_colors(colors, rgb);
+		data->map_info->ceiling_color_set++;
+		return (1);
 	}
 	else if (line[0] == 'F')
 	{
@@ -91,5 +93,8 @@ void	load_color(t_data *data, char *line)
 		convert_str_to_rgb(data, colors, rgb);
 		data->map_info->hex_floor = convert_to_hex(rgb[0], rgb[1], rgb[2]);
 		free_colors(colors, rgb);
+		data->map_info->floor_color_set++;
+		return (1);
 	}
+	return (0);
 }

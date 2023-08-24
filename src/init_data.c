@@ -54,15 +54,12 @@ static void	init_structures(t_data *data)
 		ft_putendl_fd(MALLOC_ERR, STDERR_FILENO);
 		free_and_exit(data, EXIT_SUCCESS);
 	}
-	data->ray->player_dir = 'N'; // TODO
 	data->player = ft_calloc(1, sizeof(t_player));
 	if (!(data->player))
 	{
 		ft_putendl_fd(MALLOC_ERR, STDERR_FILENO);
 		free_and_exit(data, EXIT_SUCCESS);
 	}
-	data->player->pos_x = 5; // TODO
-	data->player->pos_y = 10; // TODO
 	get_player_orientation(data->player, data->ray);
 	data->tex_info = ft_calloc(1, sizeof(t_texture_info));
 	if (!(data->tex_info))
