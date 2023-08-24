@@ -5,119 +5,118 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: amorilla <amorilla@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/09 20:25:40 by jdomingu          #+#    #+#             */
-/*   Updated: 2023/07/27 17:43:47 by amorilla         ###   ########.fr       */
+/*   Created: 2022/05/08 19:55:14 by amorilla          #+#    #+#             */
+/*   Updated: 2023/08/11 18:40:52 by amorilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-static int	ft_find_eol(char *buff, int *pos)
+int	ft_hasendl(int *index, char *staticbuff)
 {
 	int	i;
 
 	i = 0;
-	while (buff[i])
+	while (staticbuff[i])
 	{
-		if (buff[i] == '\n')
+		if (staticbuff[i] == '\n')
 		{
-			*pos = i;
+			*index = i;
 			return (1);
 		}
 		i++;
 	}
+	*index = -42;
 	return (0);
 }
 
-static int	ft_read_fd(int fd, char *buff, char **line, int *eol_idx)
+int	ft_checkstaticbuff(char **line, char **staticbuff)
 {
-	int		nbytes;
-	int		i;
+	int		idx;
+	char	*bufaux;
 
-	i = 0;
-	while (i < BUFFER_SIZE + 1)
-		buff[i++] = 0;
-	nbytes = read(fd, buff, BUFFER_SIZE);
-	if (nbytes == -1)
-		return (-1);
-	if (ft_find_eol(buff, eol_idx))
-		ft_gnl_strjoin(line, buff, ((size_t)(*eol_idx)) + 1);
-	else
-	{
-		ft_gnl_strjoin(line, buff, ft_gnl_strlen(buff));
-		*eol_idx = -1;
-	}
-	return (nbytes);
-}
-
-static int	ft_check_buff(char **static_buff, char **line)
-{
-	int		i;
-	char	*tmp;
-
-	if (!*static_buff)
+	if (!*staticbuff)
 	{
 		*line = 0;
 		return (0);
 	}
-	if (ft_find_eol(*static_buff, &i))
+	else if (ft_hasendl(&idx, *staticbuff))
 	{
-		*line = ft_gnl_substr(*static_buff, 0, i + 1);
-		tmp = *static_buff;
-		*static_buff = ft_gnl_substr(tmp, i + 1, ft_gnl_strlen(*static_buff));
-		free(tmp);
+		*line = ft_substr_gnl(*staticbuff, 0, idx + 1);
+		bufaux = ft_substr_gnl(*staticbuff, idx + 1, ft_strlen_gnl(*staticbuff));
+		free (*staticbuff);
+		*staticbuff = ft_strdup_gnl(bufaux);
+		free(bufaux);
 		return (1);
 	}
-	*line = ft_gnl_strdup(*static_buff);
-	free(*static_buff);
-	*static_buff = 0;
+	*line = ft_strdup_gnl(*staticbuff);
+	free(*staticbuff);
+	*staticbuff = 0;
 	return (0);
 }
 
-static char	*ft_getline(int fd, char *buff, char **static_buff)
+int	ft_readline(int fd, char *buffer, char **line, int *eol_idx)
+{
+	int		b_read;
+	size_t	i;
+
+	i = 0;
+	while (i < BUFFER_SIZE + 1)
+		buffer[i++] = 0;
+	b_read = read(fd, buffer, BUFFER_SIZE);
+	if (b_read == -1)
+		return (-1);
+	if (ft_hasendl(eol_idx, buffer))
+		ft_strjoin_gnl(line, buffer, ((size_t)(*eol_idx)) + 1);
+	else
+	{
+		ft_strjoin_gnl(line, buffer, ft_strlen_gnl(buffer));
+		*eol_idx = -1;
+	}
+	return (b_read);
+}
+
+char	*ft_maneyador(int fd, char *buff, char **staticbuff)
 {
 	char	*line;
-	int		nbytes;
-	int		eol_idx;
+	int		bytesreaded;
+	int		indexeol;
 
-	if (ft_check_buff(static_buff, &line))
+	if (ft_checkstaticbuff(&line, staticbuff))
 		return (line);
-	nbytes = 1;
-	eol_idx = -1;
-	while (nbytes && eol_idx == -1)
+	bytesreaded = 1;
+	indexeol = -1;
+	while (bytesreaded && indexeol == -1)
 	{
-		nbytes = ft_read_fd(fd, buff, &line, &eol_idx);
-		if (nbytes == -1 || !line)
+		bytesreaded = ft_readline(fd, buff, &line, &indexeol);
+		if (bytesreaded == -1 || !line)
 		{
 			free(line);
 			return (0);
 		}
 	}
-	free(*static_buff);
-	*static_buff = 0;
-	if (eol_idx == -1)
-		ft_gnl_strjoin(&line, buff, ft_gnl_strlen(buff));
+	free(*staticbuff);
+	*staticbuff = 0;
+	if (indexeol == -1)
+		ft_strjoin_gnl(&line, buff, ft_strlen_gnl(buff));
 	else
-		*static_buff = ft_gnl_substr(buff, (size_t) eol_idx + 1,
-				ft_gnl_strlen(buff));
+		*staticbuff = ft_substr_gnl(buff, (size_t) indexeol + 1, ft_strlen_gnl(buff));
 	return (line);
 }
 
 char	*get_next_line(int fd)
 {
-	static char	*static_buff[1024];
-	char		*buff;
+	static char	*staticbuffer[1024];
 	char		*line;
+	char		*buffer;
 
 	line = 0;
-	if (BUFFER_SIZE > 0 && fd >= 0 && fd < 1024)
-	{
-		buff = (char *) ft_gnl_calloc(BUFFER_SIZE + 1, sizeof(char));
-		if (buff)
-		{
-			line = ft_getline(fd, buff, &(static_buff[fd]));
-			free(buff);
-		}
-	}
+	if (fd < 0 || fd >= 1024 || BUFFER_SIZE <= 0)
+		return (0);
+	buffer = ft_calloc_gnl(sizeof(char), (BUFFER_SIZE + 1));
+	if (!buffer)
+		return (0);
+	line = ft_maneyador(fd, buffer, &staticbuffer[fd]);
+	free(buffer);
 	return (line);
 }

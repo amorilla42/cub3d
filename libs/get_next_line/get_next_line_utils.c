@@ -5,33 +5,105 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: amorilla <amorilla@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/09 20:25:56 by jdomingu          #+#    #+#             */
-/*   Updated: 2023/01/09 20:26:03 by jdomingu         ###   ########.fr       */
+/*   Created: 2022/05/10 19:35:38 by amorilla          #+#    #+#             */
+/*   Updated: 2023/08/11 18:42:00 by amorilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-size_t	ft_gnl_strlen(char *str)
+void	*ft_calloc_gnl(size_t num, size_t size)
 {
-	int	i;
+	size_t	mul;
+	char	*res;
+	size_t	i;
 
+	mul = num * size;
+	if (num != 0 && mul / num != size)
+		return (0);
+	res = (char *) malloc(mul);
+	if (!res)
+		return (0);
 	i = 0;
-	while (str && str[i])
-		i++;
-	return (i);
+	while (i < mul)
+		res[i++] = 0;
+	return (res);
 }
 
-char	*ft_gnl_strdup(char *s1)
+size_t	ft_strlen_gnl(char *str)
 {
+	size_t	len;
+
+	len = 0;
+	while (str && str[len])
+		len++;
+	return (len);
+}
+
+void	ft_strjoin_gnl(char **s1, char *s2, size_t s2_len)
+{
+	char	*res;
+	size_t	i;
+	size_t	s1_len;
+
+	if (s2_len == 0)
+		return ;
+	s1_len = ft_strlen_gnl(*s1);
+	res = (char *) ft_calloc_gnl(s1_len + s2_len + 1, sizeof(char));
+	if (!res)
+	{
+		free(*s1);
+		*s1 = 0;
+		return ;
+	}
+	i = -1;
+	while (++i < s1_len)
+		res[i] = (*s1)[i];
+	i = -1;
+	while (++i < s2_len)
+		res[s1_len + i] = s2[i];
+	free(*s1);
+	*s1 = res;
+}
+
+char	*ft_substr_gnl(char *s, unsigned int start, size_t len)
+{
+	char	*res;
+	size_t	s_len;
+	size_t	i;
+	size_t	total_len;
+
+	if (!s)
+		return (0);
+	s_len = ft_strlen_gnl(s);
+	if (start >= s_len)
+		return (0);
+	else if (s_len - start < len)
+		total_len = s_len - start;
+	else
+		total_len = len;
+	res = (char *) ft_calloc_gnl(total_len + 1, sizeof(char));
+	if (!res)
+		return (0);
+	i = 0;
+	while (i < len && i + start < s_len)
+	{
+		res[i] = s[start + i];
+		i++;
+	}
+	return (res);
+}
+
+char	*ft_strdup_gnl(char *s1)
+{
+	char	*res;
 	int		len;
 	int		i;
-	char	*res;
 
 	if (!s1)
 		return (0);
-	len = ft_gnl_strlen(s1);
-	res = (char *) ft_gnl_calloc(len + 1, sizeof(char));
+	len = ft_strlen_gnl(s1);
+	res = (char *) ft_calloc_gnl(len + 1, sizeof(char));
 	if (!res)
 		return (0);
 	i = 0;
@@ -41,77 +113,4 @@ char	*ft_gnl_strdup(char *s1)
 		i++;
 	}
 	return (res);
-}
-
-char	*ft_gnl_substr(char *s, unsigned int start, size_t len)
-{
-	char	*str;
-	size_t	slen;
-	size_t	minlen;
-	size_t	i;
-
-	if (!s)
-		return (0);
-	slen = ft_gnl_strlen(s);
-	if (start >= slen)
-		return (0);
-	if (slen - start < len)
-		minlen = slen - start;
-	else
-		minlen = len;
-	str = (char *) ft_gnl_calloc(minlen + 1, sizeof(char));
-	if (!str)
-		return (0);
-	i = 0;
-	while (i < len && i + start < slen)
-	{
-		str[i] = s[start + i];
-		i++;
-	}
-	return (str);
-}
-
-void	ft_gnl_strjoin(char **s1, char *s2, size_t s2len)
-{
-	char	*str;
-	size_t	i;
-	size_t	s1len;
-
-	if (s2len != 0)
-	{
-		s1len = ft_gnl_strlen(*s1);
-		str = (char *) ft_gnl_calloc(s1len + s2len + 1, sizeof(char));
-		if (!str)
-		{
-			free(*s1);
-			*s1 = 0;
-			return ;
-		}
-		i = -1;
-		while (++i < s1len)
-			str[i] = (*s1)[i];
-		i = -1;
-		while (++i < s2len)
-			str[s1len + i] = s2[i];
-		free(*s1);
-		*s1 = str;
-	}
-}
-
-void	*ft_gnl_calloc(size_t count, size_t size)
-{
-	char	*ptr;
-	size_t	mult;
-	size_t	i;
-
-	mult = count * size;
-	if (count != 0 && mult / count != size)
-		return (0);
-	ptr = (char *) malloc(mult);
-	if (!ptr)
-		return (0);
-	i = 0;
-	while (mult--)
-		ptr[i++] = 0;
-	return (ptr);
 }
