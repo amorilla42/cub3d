@@ -38,6 +38,7 @@
 # define INVALID_MAP "Error\nInvalid map"
 # define DUPLICATE_ERR "Error\nDuplicated information"
 # define COLOR_ERR "Error\nColor must be in range [0, 255]"
+# define NOT_NUMBER_ERR "Error\nNot a valid number"
 
 /* ================================ STRUCTS ================================ */
 typedef struct s_texture_info

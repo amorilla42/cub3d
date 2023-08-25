@@ -57,9 +57,9 @@ static char	**parse_colors(t_data *data, char *line)
 
 static void	convert_str_to_rgb(t_data *data, char **colors, int *rgb)
 {
-	rgb[0] = ft_atoi(colors[0]);
-	rgb[1] = ft_atoi(colors[1]);
-	rgb[2] = ft_atoi(colors[2]);
+	rgb[0] = check_if_number(data, colors[0]);
+	rgb[1] = check_if_number(data, colors[1]);
+	rgb[2] = check_if_number(data, colors[2]);
 	if (rgb[0] < 0 || rgb[0] > 255
 		|| rgb[1] < 0 || rgb[1] > 255
 		|| rgb[2] < 0 || rgb[2] > 255)
