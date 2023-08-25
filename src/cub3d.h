@@ -19,7 +19,7 @@
 
 # define INFINITE 1e30
 
-# define COLLIDER_DISTANCE 1.25
+# define COLLIDER_DISTANCE 0.25
 
 # define NORTH 0
 # define SOUTH 1

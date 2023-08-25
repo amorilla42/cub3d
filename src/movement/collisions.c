@@ -2,12 +2,11 @@
 
 static int	is_valid_pos(t_data *data, double x, double y)
 {
-	(void) data;
-
 	return (x >= COLLIDER_DISTANCE && y >= COLLIDER_DISTANCE
-		&& x <= /*data->map_info->width*/ 12 - COLLIDER_DISTANCE
-		&& y <= /*data->map_info->height*/ 12 - COLLIDER_DISTANCE
-		&& map[(int) x][(int) y] == 0);
+		&& x <= data->map_info->width - COLLIDER_DISTANCE
+		&& y <= data->map_info->height - COLLIDER_DISTANCE
+		&& (data->map[(int) x][(int) y] == 0
+		|| ft_strchr("NSEW", data->map[(int) x][(int) y])));
 }
 
 void	check_valid_position(t_data *data, double x, double y)
