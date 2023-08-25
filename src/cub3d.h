@@ -41,6 +41,7 @@
 # define INVALID_MAP "Error\nInvalid map"
 # define DUPLICATE_ERR "Error\nDuplicated information"
 # define COLOR_ERR "Error\nColor must be in range [0, 255]"
+# define NOT_NUMBER_ERR "Error\nNot a valid number"
 
 /* ================================ STRUCTS ================================ */
 typedef struct s_texture_info
@@ -133,9 +134,10 @@ void			print_ceiling_floor(t_data *data);
 void			clean_img(t_data *data);
 
 /* ================================= UTILS ================================= */
-void			init_data(t_data *data);
-void			free_and_exit(t_data *data, int exit_code_number);
-void			free_colors(char **colors, int *rgb);
+void	init_data(t_data *data);
+void	free_and_exit(t_data *data, int exit_code_number);
+void	free_colors(char **colors, int *rgb);
+int		check_if_number(t_data *data, char *nbr);
 
 /* ================================= BONUS ================================= */
 void			check_valid_position(t_data *data, double x, double y);
