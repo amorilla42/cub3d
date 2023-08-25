@@ -133,6 +133,7 @@ void	clean_img(t_data *data);
 void	init_data(t_data *data);
 void	free_and_exit(t_data *data, int exit_code_number);
 void	free_colors(char **colors, int *rgb);
+int		check_if_number(t_data *data, char *nbr);
 
 extern int	map[12][12]; //TODO
 

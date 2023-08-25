@@ -2,11 +2,10 @@
 
 int	check_if_number(t_data *data, char *nbr)
 {
-	int	valid;
 	int	i;
 
 	i = -1;
-	while (++i < ft_strlen(nbr))
+	while (++i < (int) ft_strlen(nbr))
 	{
 		if (!ft_isdigit(nbr[i]))
 		{
@@ -14,7 +13,7 @@ int	check_if_number(t_data *data, char *nbr)
 			free_and_exit(data, EXIT_FAILURE);
 		}
 	}
-	ft_atoi(nbr);
+	return (ft_atoi(nbr));
 }
 
 unsigned int	convert_to_hex(int r, int g, int b)
