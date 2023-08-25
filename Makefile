@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: amorilla <amorilla@student.42malaga.com    +#+  +:+       +#+         #
+#    By: jdomingu <jdomingu@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/15 00:25:28 by jdomingu          #+#    #+#              #
-#    Updated: 2023/08/24 16:57:56 by amorilla         ###   ########.fr        #
+#    Updated: 2023/08/25 16:21:29 by jdomingu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,11 +63,13 @@ $(NAME): $(OBJS)
 clean:
 	rm -rf $(OBJS)
 	rm -rf $(NAME).dSYM
+	make clean -C $(LIBFT)
+	make clean -C $(LIBMLX)
 
 fclean: clean
 	rm -rf $(NAME)
-	make fclean -C $(LIBFT)
-	make fclean -C $(LIBMLX)
+	rm -rf $(LIBFT)/libft.a
+	rm -rf $(LIBMLX)/libmlx42.a
 
 re: fclean all
 
