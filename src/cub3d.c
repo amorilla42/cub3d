@@ -11,12 +11,6 @@ int	main(int argc, char **argv)
 		return (ft_putendl_fd(MALLOC_ERR, STDERR_FILENO), EXIT_FAILURE);
 	data->map_info = ft_calloc(1, sizeof(t_map_info));
 	parsemap(argv[1], data);
-
-
-
-
-
-
 	data->mlx = mlx_init(WIDTH, HEIGHT, "cub3D", false);
 	if (!(data->mlx))
 	{

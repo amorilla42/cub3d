@@ -11,10 +11,13 @@
 # include "MLX42/MLX42.h"
 
 /* =============================== CONSTANTS =============================== */
+
 # define WIDTH 640
 # define HEIGHT 480
 
 # define TEX_SIZE 64
+
+# define COLLIDER_DISTANCE 1.25
 
 # define NORTH 0
 # define SOUTH 1
@@ -81,12 +84,12 @@ typedef struct s_raycast
 
 typedef struct s_map_info
 {
-	char	*no_path;			//north texture path
-	char	*so_path;			//south texture path
-	char	*we_path;			//west texture path
-	char	*ea_path;			//east texture path
-	char	*floor_color_rgb;	//suelo color 
-	char	*ceiling_color_rgb;	//techo color 
+	char			*no_path;
+	char			*so_path;
+	char			*we_path;
+	char			*ea_path;
+	char			*floor_color_rgb;
+	char			*ceiling_color_rgb;
 	unsigned int	hex_floor;
 	unsigned int	hex_ceiling;
 }	t_map_info;
@@ -102,8 +105,8 @@ typedef struct s_data
 	t_player		*player;
 	mlx_texture_t	*textures[4];
 	t_texture_info	*tex_info;
-	int				fd;		//file descriptor
-	char 			**file;	//archivo entero guardado como matriz
+	int				fd;
+	char			**file;
 }	t_data;
 
 /* ================================= PARSER ================================= */
@@ -118,21 +121,25 @@ void			check_already_loaded(t_data *data, int option);
 
 /* ================================ MOVEMENT ================================ */
 
-void	move_player(void *game_data);
-void	get_player_orientation(t_player *player, t_ray *ray);
-void	rotate_player(t_data *data, int dir);
+void			move_player(void *game_data);
+void			get_player_orientation(t_player *player, t_ray *ray);
+void			rotate_player(t_data *data, int dir);
 
 /* ================================= RENDER ================================= */
-void	render_game(t_data *data);
-void	textures_calculation(t_data *data, t_ray *ray, t_player *player, int x);
-void	print_ceiling_floor(t_data *data);
-void	clean_img(t_data *data);
+void			render_game(t_data *data);
+void			textures_calculation(t_data *data, t_ray *ray,
+					t_player *player, int x);
+void			print_ceiling_floor(t_data *data);
+void			clean_img(t_data *data);
 
 /* ================================= UTILS ================================= */
-void	init_data(t_data *data);
-void	free_and_exit(t_data *data, int exit_code_number);
-void	free_colors(char **colors, int *rgb);
+void			init_data(t_data *data);
+void			free_and_exit(t_data *data, int exit_code_number);
+void			free_colors(char **colors, int *rgb);
 
-extern int	map[12][12]; //TODO
+/* ================================= BONUS ================================= */
+void			check_valid_position(t_data *data, double x, double y);
+
+extern int		map[12][12]; //TODO
 
 #endif

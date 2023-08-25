@@ -1,8 +1,8 @@
 #include "cub3d.h"
 
-static void check_texture(char *archive, t_data *data)
+static void	check_texture(char *archive, t_data *data)
 {
-	int fd;
+	int		fd;
 	size_t	len;
 
 	fd = open(archive, O_RDONLY);
@@ -13,10 +13,10 @@ static void check_texture(char *archive, t_data *data)
 	}
 	close(fd);
 	len = (int)ft_strlen(archive);
-	if(!((len > 4) && (archive[len - 4] == '.')
-		&& (archive[len - 3] == 'p')
-		&& (archive[len - 2] == 'n')
-		&& (archive[len - 1] == 'g')))
+	if (!((len > 4) && (archive[len - 4] == '.')
+			&& (archive[len - 3] == 'p')
+			&& (archive[len - 2] == 'n')
+			&& (archive[len - 1] == 'g')))
 	{
 		ft_putstr_fd(EXTENSION_ERR, STDERR_FILENO);
 		free_and_exit(data, EXIT_FAILURE);

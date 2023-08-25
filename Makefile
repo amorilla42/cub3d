@@ -3,15 +3,15 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: amorilla <amorilla@student.42malaga.com    +#+  +:+       +#+         #
+#    By: jdomingu <jdomingu@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/15 00:25:28 by jdomingu          #+#    #+#              #
-#    Updated: 2023/08/24 16:57:56 by amorilla         ###   ########.fr        #
+#    Updated: 2023/08/24 19:54:36 by jdomingu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= cub3D
-CFLAGS	= -Wall -Wextra -Werror -D BUFFER_SIZE=42 -g #-fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -D BUFFER_SIZE=42 -g #-fsanitize=address
 HEADERS = -I $(SRC_DIR) -I $(GNL_DIR) -I $(LIBMLX)/include -I $(LIBFT)
 LIBS_MAC = $(LIBFT)/libft.a $(LIBMLX)/libmlx42.a -lglfw -L /Users/${USER}/.brew/opt/glfw/lib/
 #LIBS_LINUX = $(LIBFT)/libft.a $(LIBMLX)/libmlx42.a -ldl -lglfw -pthread -lm
@@ -36,7 +36,7 @@ PARSER_SRCS  = $(addprefix $(PARSER_DIR), $(PARSER_FILES))
 RENDER_FILES = raycasting.c textures.c
 RENDER_SRCS = $(addprefix $(RENDER_DIR), $(RENDER_FILES))
 
-MOVEMENT_FILES = get_player_orientation.c move_player.c rotate_player.c
+MOVEMENT_FILES = get_player_orientation.c move_player.c rotate_player.c collisions.c
 MOVEMENT_SRCS = $(addprefix $(MOVEMENT_DIR), $(MOVEMENT_FILES))
 
 FILES	 = cub3d.c free.c init_data.c
@@ -62,7 +62,10 @@ $(NAME): $(OBJS)
 
 clean:
 	rm -rf $(OBJS)
+	rm -rf $(OBJS_BONUS)
 	rm -rf $(NAME).dSYM
+	make clean -C $(LIBFT)
+	make clean -C $(LIBMLX)
 
 fclean: clean
 	rm -rf $(NAME)
