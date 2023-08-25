@@ -16,6 +16,8 @@
 
 # define TEX_SIZE 64
 
+# define INFINITE 1e30
+
 # define NORTH 0
 # define SOUTH 1
 # define EAST 2
@@ -35,7 +37,7 @@
 # define FILE_ERR "Error\nFile does not exist"
 # define LOAD_ERR "Error\nUnable to load resource"
 # define EXTENSION_ERR "Error\nInvalid file extension"
-# define INVALID_MAP "Error\nInvalid map"
+# define MAP_ERR "Error\nInvalid map"
 # define DUPLICATE_ERR "Error\nDuplicated information"
 # define COLOR_ERR "Error\nColor must be in range [0, 255]"
 # define PLAYER_ERR "Error\nIssues with player position"
@@ -135,10 +137,10 @@ void	print_ceiling_floor(t_data *data);
 void	clean_img(t_data *data);
 
 /* ================================= UTILS ================================= */
-void	init_data(t_data *data);
+void	init_images(t_data *data);
+void	init_structures(t_data *data);
+void	init_textures(t_data *data);
 void	free_and_exit(t_data *data, int exit_code_number);
 void	free_colors(char **colors, int *rgb);
-
-extern int	map[12][12]; //TODO
 
 #endif

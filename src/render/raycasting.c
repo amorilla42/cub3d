@@ -1,20 +1,5 @@
 #include "cub3d.h"
 
-int	map[12][12] = {
-{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-{1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1},
-{1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1},
-{1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1},
-{1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1},
-{1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1},
-{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
-}; //TODO
-
 static void	calculate_heights(t_ray *ray)
 {
 	if (!(ray->side))
@@ -35,6 +20,7 @@ static void	execute_dda(t_data *data, t_ray *ray)
 	int		hit;
 
 	hit = 0;
+	(void) data;
 	while (!hit)
 	{
 		if (ray->side_dist_x < ray->side_dist_y)
@@ -49,8 +35,9 @@ static void	execute_dda(t_data *data, t_ray *ray)
 			ray->map_y += ray->step_y;
 			ray->side = 1;
 		}
-		if (data->map[ray->map_x][ray->map_y] > 0) //TODO //Da aquí buffer overflow usando fsanitize=address
-			hit = 1;
+		if (data->map[ray->map_x][ray->map_y] != '0'
+			&& !ft_strchr("NSWE", data->map[ray->map_x][ray->map_y]))
+				hit = 1;
 	}
 }
 
@@ -93,8 +80,14 @@ static void	set_raycast_info(t_data *data, int x)
 	ray->dir_y = player->dir_y + player->plane_y * camera_x;
 	ray->map_x = (int) player->pos_x;
 	ray->map_y = (int) player->pos_y;
-	ray->delta_dist_x = fabs(1 / ray->dir_x);
-	ray->delta_dist_y = fabs(1 / ray->dir_y);
+	if (ray->dir_x == 0)
+		ray->delta_dist_x = INFINITE;
+	else
+		ray->delta_dist_x = fabs(1 / ray->dir_x);
+	if (ray->dir_y == 0)
+		ray->delta_dist_y = INFINITE;
+	else
+		ray->delta_dist_y = fabs(1 / ray->dir_y);
 	calculate_euclidean_distance(ray, player);
 }
 

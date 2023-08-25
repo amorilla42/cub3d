@@ -10,20 +10,17 @@ int	main(int argc, char **argv)
 	if (!data)
 		return (ft_putendl_fd(MALLOC_ERR, STDERR_FILENO), EXIT_FAILURE);
 	data->map_info = ft_calloc(1, sizeof(t_map_info));
+	if (!data->map_info)
+		return (ft_putendl_fd(MALLOC_ERR, STDERR_FILENO), free(data), EXIT_FAILURE);
 	parsemap(argv[1], data);
-
-
-
-
-
-
-	data->mlx = mlx_init(WIDTH, HEIGHT, "cub3D", false);
+	init_textures(data);
+	data->mlx = mlx_init(WIDTH, HEIGHT, "cub3D", true);
 	if (!(data->mlx))
 	{
 		ft_putendl_fd(MALLOC_ERR, STDERR_FILENO);
 		free_and_exit(data, EXIT_FAILURE);
 	}
-	init_data(data);
+	init_images(data);
 	print_ceiling_floor(data);
 	mlx_loop_hook(data->mlx, &move_player, data);
 	mlx_loop(data->mlx);

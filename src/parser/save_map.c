@@ -45,7 +45,7 @@ static int	contains_ones_or_zeros(char *line)
 	i = 0;
 	while (line[i])
 	{
-		if (line[i] != '1' && !ft_strchr(SPECIAL_CHARS, line[i]))
+		if (line[i] != '1' && line[i] != '0' && line[i] != '\n')
 			return (0);
 		i++;
 	}
@@ -153,7 +153,7 @@ static void	check_player(t_data *data)
 
 	i = 0;
 	player = 0;
-	j = 0;
+	init_structures(data);
 	while (data->map[i])
 	{
 		j = 0;
@@ -171,26 +171,28 @@ static void	check_player(t_data *data)
 		i++;
 	}
 	check_player_exist(data, player);
+	get_player_orientation(data->player, data->ray);
 }
 
 static void	map_surrounded_by_walls(t_data *data, char *line, int j, int i)
 {
-	if (!line[i])
+	if (!line[j])
 		return ;
-	if (is_valid_elem(line[i]) == 0)
+	if (is_valid_elem(line[j]) == 0)
 	{
-		ft_putendl_fd(INVALID_MAP, STDERR_FILENO);
+		ft_putendl_fd(MAP_ERR, STDERR_FILENO);
 		free_and_exit(data, EXIT_FAILURE);
 	}
-	if (line[i] != '1')
+	if (line[j] != '1')
 	{
+		printf("i: %d, j: %d\n", i, j);
 		if ((!line[j + 1] || line[j + 1] == '.')
 			|| (!i || i == data->map_info->height - 1)
 			|| (i > 0 && (is_valid_elem(data->map[i - 1][j]) == 0))
-			|| (i < data->map_info->height - 1
+			|| ((i < data->map_info->height - 1)
 				&& (is_valid_elem(data->map[i + 1][j]) == 0)))
 		{
-			ft_putendl_fd(INVALID_MAP, STDERR_FILENO);
+			ft_putendl_fd(MAP_ERR, STDERR_FILENO);
 			free_and_exit(data, EXIT_FAILURE);
 		}
 	}
@@ -211,7 +213,7 @@ static void	check_line_by_line(t_data *data, char *line, int i)
 				continue;
 			else if (line[j] != '1')
 			{
-				ft_putendl_fd(INVALID_MAP, STDERR_FILENO);
+				ft_putendl_fd(MAP_ERR, STDERR_FILENO);
 				free_and_exit(data, EXIT_FAILURE);
 			}
 		}
@@ -222,6 +224,9 @@ static void	check_line_by_line(t_data *data, char *line, int i)
 
 static void mapa_comprobar(t_data *data, int i)
 {
+	int	j;
+
+	j = 0;
 	data->map_info->width = get_max_width(data->file, i);
 	while (data->file[i])
 	{
@@ -237,10 +242,10 @@ static void mapa_comprobar(t_data *data, int i)
 	}
 	data->map[data->row] = NULL;
 	check_player(data);
-	while (data->map[i])
+	while (data->map[j])
 	{
-		check_line_by_line(data, data->map[i], i);
-		i++;
+		check_line_by_line(data, data->map[j], j);
+		j++;
 	}
 }
 
