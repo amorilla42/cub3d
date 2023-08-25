@@ -5,18 +5,14 @@ static void	free_map_struct(t_data *data)
 	t_map_info	*map_info;
 
 	map_info = data->map_info;
-	if (map_info->no_path)
+    if(map_info->no_path)
 		free(map_info->no_path);
-	if (map_info->so_path)
+    if(map_info->so_path)
 		free(map_info->so_path);
-	if (map_info->we_path)
+    if(map_info->we_path)
 		free(map_info->we_path);
-	if (map_info->ea_path)
+	if(map_info->ea_path)
 		free(map_info->ea_path);
-	if (map_info->floor_color_rgb)
-		free(map_info->floor_color_rgb);
-	if (map_info->ceiling_color_rgb)
-		free(map_info->ceiling_color_rgb);
 	free(map_info);
 }
 

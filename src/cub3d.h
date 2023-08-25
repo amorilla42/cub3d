@@ -17,6 +17,8 @@
 
 # define TEX_SIZE 64
 
+# define INFINITE 1e30
+
 # define COLLIDER_DISTANCE 1.25
 
 # define NORTH 0
@@ -38,9 +40,10 @@
 # define FILE_ERR "Error\nFile does not exist"
 # define LOAD_ERR "Error\nUnable to load resource"
 # define EXTENSION_ERR "Error\nInvalid file extension"
-# define INVALID_MAP "Error\nInvalid map"
+# define MAP_ERR "Error\nInvalid map"
 # define DUPLICATE_ERR "Error\nDuplicated information"
 # define COLOR_ERR "Error\nColor must be in range [0, 255]"
+# define PLAYER_ERR "Error\nIssues with player position"
 # define NOT_NUMBER_ERR "Error\nNot a valid number"
 
 /* ================================ STRUCTS ================================ */
@@ -89,16 +92,17 @@ typedef struct s_map_info
 	char			*so_path;
 	char			*we_path;
 	char			*ea_path;
-	char			*floor_color_rgb;
-	char			*ceiling_color_rgb;
 	unsigned int	hex_floor;
 	unsigned int	hex_ceiling;
+	int				floor_color_set;
+	int				ceiling_color_set;
+	int				height;
+	int				width;
 }	t_map_info;
 
 typedef struct s_data
 {
 	mlx_t			*mlx;
-	char			**map;
 	t_map_info		*map_info;
 	mlx_image_t		*game_img;
 	mlx_image_t		*bg_img;
@@ -106,18 +110,22 @@ typedef struct s_data
 	t_player		*player;
 	mlx_texture_t	*textures[4];
 	t_texture_info	*tex_info;
-	int				fd;
-	char			**file;
+	int				fd;		//file descriptor
+	char 			**file;	//archivo entero guardado como matriz
+	char			**map;
+	int				row;
+	int				col;
+	int				aux_idx;
 }	t_data;
 
 /* ================================= PARSER ================================= */
 
 void			parsemap(char *archive, t_data *data);
-void			enter_map(t_data *data);
+int				load_map(t_data *data, int i);
 void			load_file(char *file, t_data *data);
 unsigned int	convert_to_hex(int r, int g, int b);
-void			load_color(t_data *data, char *line);
-void			load_textures(t_data *data, char *line);
+int				load_color(t_data *data, char *line);
+int				load_textures(t_data *data, char *line);
 void			check_already_loaded(t_data *data, int option);
 
 /* ================================ MOVEMENT ================================ */
@@ -134,14 +142,13 @@ void			print_ceiling_floor(t_data *data);
 void			clean_img(t_data *data);
 
 /* ================================= UTILS ================================= */
-void	init_data(t_data *data);
+void	init_images(t_data *data);
+void	init_structures(t_data *data);
+void	init_textures(t_data *data);
 void	free_and_exit(t_data *data, int exit_code_number);
 void	free_colors(char **colors, int *rgb);
 int		check_if_number(t_data *data, char *nbr);
 
 /* ================================= BONUS ================================= */
 void			check_valid_position(t_data *data, double x, double y);
-
-extern int		map[12][12]; //TODO
-
 #endif
