@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-static void check_file(t_data *data, char *archive)
+static void	check_file(t_data *data, char *archive)
 {
 	int		fd;
 	size_t	len;
@@ -14,9 +14,9 @@ static void check_file(t_data *data, char *archive)
 	close(fd);
 	len = (int) ft_strlen(archive);
 	if (!((len > 4) && (archive[len - 4] == '.')
-		&& (archive[len - 3] == 'c')
-		&& (archive[len - 2] == 'u')
-		&& (archive[len - 1] == 'b')))
+			&& (archive[len - 3] == 'c')
+			&& (archive[len - 2] == 'u')
+			&& (archive[len - 1] == 'b')))
 	{
 		ft_putendl_fd(EXTENSION_ERR, STDERR_FILENO);
 		free_and_exit(data, EXIT_FAILURE);
@@ -39,7 +39,7 @@ static int	load_map_params(t_data *data, char *line)
 	return (1);
 }
 
-static void	check_all_loaded(t_data *data)
+/*static void	check_all_loaded(t_data *data)
 {
 	if (!data->map_info->no_path
 		|| !data->map_info->we_path
@@ -51,7 +51,7 @@ static void	check_all_loaded(t_data *data)
 		ft_putendl_fd(INFO_ERR, STDERR_FILENO);
 		free_and_exit(data, EXIT_FAILURE);
 	}
-}
+}*/
 
 void	parsemap(char *archive, t_data *data)
 {
@@ -68,9 +68,9 @@ void	parsemap(char *archive, t_data *data)
 			i++;
 			continue ;
 		}
-		if (load_map(data, i))
-			break ;
+		/*if (load_map(data, i))
+			break ;*/
 		i++;
 	}
-	check_all_loaded(data);
+	//check_all_loaded(data);
 }

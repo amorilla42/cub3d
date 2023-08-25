@@ -18,8 +18,6 @@ static void	check_colors_len(char **matrix, t_data *data)
 	}
 }
 
-
-
 static int	*malloc_rgb(void)
 {
 	int	*rgb;
@@ -32,7 +30,6 @@ static int	*malloc_rgb(void)
 	}
 	return (rgb);
 }
-
 
 static char	**parse_colors(t_data *data, char *line)
 {
@@ -68,7 +65,6 @@ static void	convert_str_to_rgb(t_data *data, char **colors, int *rgb)
 		free_and_exit(data, EXIT_FAILURE);
 	}
 }
-
 
 void	load_color(t_data *data, char *line)
 {
