@@ -162,8 +162,8 @@ static void	check_player(t_data *data)
 			if (is_valid_elem(data->map[i][j]) == 2)
 			{
 				data->ray->player_dir = data->map[i][j];
-				data->player->pos_x = i;
-				data->player->pos_y = j;
+				data->player->pos_x = (double) i + 0.1;
+				data->player->pos_y = (double) j + 0.1;
 				player++;
 			}
 			j++;
