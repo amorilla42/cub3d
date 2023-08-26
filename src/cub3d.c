@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amorilla <amorilla@student.42malaga.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/26 20:47:37 by amorilla          #+#    #+#             */
+/*   Updated: 2023/08/26 20:47:37 by amorilla         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 int	main(int argc, char **argv)
@@ -11,7 +23,8 @@ int	main(int argc, char **argv)
 		return (ft_putendl_fd(MALLOC_ERR, STDERR_FILENO), EXIT_FAILURE);
 	data->map_info = ft_calloc(1, sizeof(t_map_info));
 	if (!data->map_info)
-		return (ft_putendl_fd(MALLOC_ERR, STDERR_FILENO), free(data), EXIT_FAILURE);
+		return (ft_putendl_fd(MALLOC_ERR, STDERR_FILENO),
+			free(data), EXIT_FAILURE);
 	parsemap(argv[1], data);
 	init_textures(data);
 	data->mlx = mlx_init(WIDTH, HEIGHT, "cub3D", true);

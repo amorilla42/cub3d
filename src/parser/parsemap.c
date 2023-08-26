@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsemap.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amorilla <amorilla@student.42malaga.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/26 20:46:20 by amorilla          #+#    #+#             */
+/*   Updated: 2023/08/26 20:46:30 by amorilla         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
-static void check_file(t_data *data, char *archive)
+static void	check_file(t_data *data, char *archive)
 {
 	int		fd;
 	size_t	len;
@@ -14,9 +26,9 @@ static void check_file(t_data *data, char *archive)
 	close(fd);
 	len = (int) ft_strlen(archive);
 	if (!((len > 4) && (archive[len - 4] == '.')
-		&& (archive[len - 3] == 'c')
-		&& (archive[len - 2] == 'u')
-		&& (archive[len - 1] == 'b')))
+			&& (archive[len - 3] == 'c')
+			&& (archive[len - 2] == 'u')
+			&& (archive[len - 1] == 'b')))
 	{
 		ft_putendl_fd(EXTENSION_ERR, STDERR_FILENO);
 		free_and_exit(data, EXIT_FAILURE);
@@ -56,7 +68,7 @@ static void	check_all_loaded(t_data *data)
 
 static int	load_colors(t_data *data, char *line)
 {
-	char *tmp;
+	char	*tmp;
 
 	tmp = line;
 	while (*tmp && *tmp != '\n')

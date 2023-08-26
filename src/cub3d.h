@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amorilla <amorilla@student.42malaga.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/26 20:48:07 by amorilla          #+#    #+#             */
+/*   Updated: 2023/08/26 20:48:07 by amorilla         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_H
 # define CUB3D_H
 
@@ -28,7 +40,7 @@
 # define CEILING 4
 # define FLOOR 5
 
-# define ROT_SPEED 0.015
+# define ROT_SPEED 0.045
 # define MOV_SPEED 0.035
 
 # define SPECIAL_CHARS "\t\f\r\n\v "
@@ -110,8 +122,8 @@ typedef struct s_data
 	t_player		*player;
 	mlx_texture_t	*textures[4];
 	t_texture_info	*tex_info;
-	int				fd;		//file descriptor
-	char 			**file;	//archivo entero guardado como matriz
+	int				fd;
+	char			**file;
 	char			**map;
 	int				row;
 	int				col;
@@ -127,12 +139,19 @@ unsigned int	convert_to_hex(int r, int g, int b);
 int				load_color(t_data *data, char *line);
 int				load_textures(t_data *data, char *line);
 void			check_already_loaded(t_data *data, int option);
+void			check_map(t_data *data, int i);
+void			check_player(t_data *data);
+void			map_surrounded_by_walls(t_data *data, char *line, int j, int i);
+void			normalize_map(t_data *data, int i);
+int				is_valid_elem(char c);
+int				line_is_empty(char *line);
 
 /* ================================ MOVEMENT ================================ */
 
 void			move_player(void *game_data);
 void			get_player_orientation(t_player *player, t_ray *ray);
 void			rotate_player(t_data *data, int dir);
+void			check_valid_position(t_data *data, double x, double y);
 
 /* ================================= RENDER ================================= */
 void			render_game(t_data *data);
@@ -142,13 +161,11 @@ void			print_ceiling_floor(t_data *data);
 void			clean_img(t_data *data);
 
 /* ================================= UTILS ================================= */
-void	init_images(t_data *data);
-void	init_structures(t_data *data);
-void	init_textures(t_data *data);
-void	free_and_exit(t_data *data, int exit_code_number);
-void	free_colors(char **colors, int *rgb);
-int		check_if_number(t_data *data, char *nbr);
+void			init_images(t_data *data);
+void			init_structures(t_data *data);
+void			init_textures(t_data *data);
+void			free_and_exit(t_data *data, int exit_code_number);
+void			free_colors(char **colors, int *rgb);
+int				check_if_number(t_data *data, char *nbr);
 
-/* ================================= BONUS ================================= */
-void			check_valid_position(t_data *data, double x, double y);
 #endif

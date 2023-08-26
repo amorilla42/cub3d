@@ -3,15 +3,15 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jdomingu <jdomingu@student.42malaga.com    +#+  +:+       +#+         #
+#    By: amorilla <amorilla@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/15 00:25:28 by jdomingu          #+#    #+#              #
-#    Updated: 2023/08/25 16:21:29 by jdomingu         ###   ########.fr        #
+#    Updated: 2023/08/26 20:52:47 by amorilla         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= cub3D
-CFLAGS = -Wall -Wextra -Werror -D BUFFER_SIZE=42 -g #-fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -D BUFFER_SIZE=42 -g -fsanitize=address
 HEADERS = -I $(SRC_DIR) -I $(GNL_DIR) -I $(LIBMLX)/include -I $(LIBFT)
 LIBS_MAC = $(LIBFT)/libft.a $(LIBMLX)/libmlx42.a -lglfw -L /Users/${USER}/.brew/opt/glfw/lib/
 #LIBS_LINUX = $(LIBFT)/libft.a $(LIBMLX)/libmlx42.a -ldl -lglfw -pthread -lm
@@ -30,7 +30,8 @@ MOVEMENT_DIR = src/movement/
 GNL_FILES = get_next_line.c get_next_line_utils.c
 GNL_SRCS  = $(addprefix $(GNL_DIR), $(GNL_FILES))
 
-PARSER_FILES = parsemap.c save_map.c colors.c colors_utils.c load_textures.c
+PARSER_FILES = parsemap.c save_map.c colors.c colors_utils.c load_textures.c \
+				load_file.c map_checker.c save_map_utils.c check_player.c
 PARSER_SRCS  = $(addprefix $(PARSER_DIR), $(PARSER_FILES))
 
 RENDER_FILES = raycasting.c textures.c

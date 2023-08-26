@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   move_player.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amorilla <amorilla@student.42malaga.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/26 20:45:05 by amorilla          #+#    #+#             */
+/*   Updated: 2023/08/26 20:50:30 by amorilla         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 static void	move_forward(t_data *data)
@@ -8,7 +20,6 @@ static void	move_forward(t_data *data)
 	x = data->player->pos_x + data->player->dir_x * MOV_SPEED;
 	y = data->player->pos_y + data->player->dir_y * MOV_SPEED;
 	check_valid_position(data, x, y);
-
 }
 
 static void	move_left(t_data *data)
@@ -29,7 +40,6 @@ static void	move_backward(t_data *data)
 	x = data->player->pos_x - data->player->dir_x * MOV_SPEED;
 	y = data->player->pos_y - data->player->dir_y * MOV_SPEED;
 	check_valid_position(data, x, y);
-
 }
 
 static void	move_right(t_data *data)

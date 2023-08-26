@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   colors.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amorilla <amorilla@student.42malaga.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/26 20:45:45 by amorilla          #+#    #+#             */
+/*   Updated: 2023/08/26 20:51:17 by amorilla         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 static void	check_colors_len(char **matrix, t_data *data)
@@ -65,7 +77,6 @@ static void	convert_str_to_rgb(t_data *data, char **colors, int *rgb)
 		free_and_exit(data, EXIT_FAILURE);
 	}
 }
-
 
 int	load_color(t_data *data, char *line)
 {

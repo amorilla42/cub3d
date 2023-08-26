@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   free.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amorilla <amorilla@student.42malaga.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/26 20:49:53 by amorilla          #+#    #+#             */
+/*   Updated: 2023/08/26 20:50:07 by amorilla         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 static void	free_map_struct(t_data *data)
@@ -5,13 +17,13 @@ static void	free_map_struct(t_data *data)
 	t_map_info	*map_info;
 
 	map_info = data->map_info;
-    if(map_info->no_path)
+	if (map_info->no_path)
 		free(map_info->no_path);
-    if(map_info->so_path)
+	if (map_info->so_path)
 		free(map_info->so_path);
-    if(map_info->we_path)
+	if (map_info->we_path)
 		free(map_info->we_path);
-	if(map_info->ea_path)
+	if (map_info->ea_path)
 		free(map_info->ea_path);
 	free(map_info);
 }
