@@ -40,7 +40,7 @@
 # define FILE_ERR "Error\nFile does not exist"
 # define LOAD_ERR "Error\nUnable to load resource"
 # define EXTENSION_ERR "Error\nInvalid file extension"
-# define MAP_ERR "Error\nInvalid map"
+# define MAP_ERR "Error\nInvalid or missing map"
 # define DUPLICATE_ERR "Error\nDuplicated information"
 # define COLOR_ERR "Error\nColor must be in range [0, 255]"
 # define PLAYER_ERR "Error\nIssues with player position"

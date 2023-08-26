@@ -71,7 +71,7 @@ static int	get_map_height(char **file, int i)
 	int	height;
 
 	height = 0;
-	while (file[i])
+	while (file[i] && (file[i][0] != '\n'))
 	{
 		height++;
 		i++;
@@ -162,8 +162,8 @@ static void	check_player(t_data *data)
 			if (is_valid_elem(data->map[i][j]) == 2)
 			{
 				data->ray->player_dir = data->map[i][j];
-				data->player->pos_x = (double) i + 0.1;
-				data->player->pos_y = (double) j + 0.1;
+				data->player->pos_x = (double) i + 0.5;
+				data->player->pos_y = (double) j + 0.5;
 				player++;
 			}
 			j++;
@@ -173,18 +173,7 @@ static void	check_player(t_data *data)
 	check_player_exist(data, player);
 	get_player_orientation(data->player, data->ray);
 }
-/// SOCK
-/*
-static int	is_surrounded(char c)
-{
-	if (ft_strchr("01", c))
-		return (1);
-	else if (ft_strchr("NSEW", c))
-		return (2);
-	else
-		return (0);
-}
-*/
+
 static void	map_surrounded_by_walls(t_data *data, char *line, int j, int i)
 {
 	if (!line[j])
@@ -196,7 +185,6 @@ static void	map_surrounded_by_walls(t_data *data, char *line, int j, int i)
 	}
 	if (line[j] != '1')
 	{
-		printf("i: %d, j: %d\n", i, j);
 		if ((!line[j + 1] || line[j + 1] == '.')
 			|| (!i || i == data->map_info->height - 1)
 			|| (j == 0 || j == data->map_info->width - 1)
@@ -234,13 +222,28 @@ static void	check_line_by_line(t_data *data, char *line, int i)
 	}
 }
 
+static void	search_extra_rows(t_data *data, int k)
+{
+	while (data->file[k])
+	{
+		if (!line_is_empty(data->file[k]))
+		{
+			ft_putendl_fd(MAP_ERR, STDERR_FILENO);
+			free_and_exit(data, EXIT_FAILURE);
+		}
+		k++;
+	}
+}
+
 static void mapa_comprobar(t_data *data, int i)
 {
 	int	j;
+	int	k;
 
 	j = 0;
+	k = i + data->map_info->height;
 	data->map_info->width = get_max_width(data->file, i);
-	while (data->file[i])
+	while (data->file[i] && i < k)
 	{
 		data->col = 0;
 		data->aux_idx = 0;
@@ -252,7 +255,7 @@ static void mapa_comprobar(t_data *data, int i)
 		i++;
 		data->row++;
 	}
-	data->map[data->row] = NULL;
+	search_extra_rows(data, k);
 	check_player(data);
 	while (data->map[j])
 	{

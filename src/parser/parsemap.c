@@ -95,5 +95,4 @@ void	parsemap(char *archive, t_data *data)
 		i++;
 	}
 	check_all_loaded(data);
-	//search_extra_rows(data, i + data->map_info->height);
 }

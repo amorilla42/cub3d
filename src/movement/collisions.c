@@ -3,8 +3,8 @@
 static int	is_valid_pos(t_data *data, double x, double y)
 {
 	return (x > 0.25 && y > 0.25
-		&& x < data->map_info->width - COLLIDER_DISTANCE
-		&& y < data->map_info->height - COLLIDER_DISTANCE
+		&& x < data->map_info->height - COLLIDER_DISTANCE
+		&& y < data->map_info->width - COLLIDER_DISTANCE
 		&& ft_strchr("0NSEW", data->map[(int) x][(int) y]));
 }
 
