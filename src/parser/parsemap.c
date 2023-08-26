@@ -46,7 +46,8 @@ static void	check_all_loaded(t_data *data)
 		|| !data->map_info->ea_path
 		|| !data->map_info->so_path
 		|| (data->map_info->floor_color_set != 1)
-		|| (data->map_info->ceiling_color_set != 1))
+		|| (data->map_info->ceiling_color_set != 1)
+		|| !data->map)
 	{
 		ft_putendl_fd(INFO_ERR, STDERR_FILENO);
 		free_and_exit(data, EXIT_FAILURE);
@@ -94,4 +95,5 @@ void	parsemap(char *archive, t_data *data)
 		i++;
 	}
 	check_all_loaded(data);
+	//search_extra_rows(data, i + data->map_info->height);
 }

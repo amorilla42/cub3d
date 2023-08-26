@@ -45,7 +45,7 @@ static int	contains_ones_or_zeros(char *line)
 	i = 0;
 	while (line[i])
 	{
-		if (line[i] != '1' && line[i] != '0' && line[i] != '\n')
+		if (line[i] != '1' && line[i] != '0' && !ft_strchr(SPECIAL_CHARS, line[i]))
 			return (0);
 		i++;
 	}
@@ -173,7 +173,18 @@ static void	check_player(t_data *data)
 	check_player_exist(data, player);
 	get_player_orientation(data->player, data->ray);
 }
-
+/// SOCK
+/*
+static int	is_surrounded(char c)
+{
+	if (ft_strchr("01", c))
+		return (1);
+	else if (ft_strchr("NSEW", c))
+		return (2);
+	else
+		return (0);
+}
+*/
 static void	map_surrounded_by_walls(t_data *data, char *line, int j, int i)
 {
 	if (!line[j])
@@ -188,6 +199,7 @@ static void	map_surrounded_by_walls(t_data *data, char *line, int j, int i)
 		printf("i: %d, j: %d\n", i, j);
 		if ((!line[j + 1] || line[j + 1] == '.')
 			|| (!i || i == data->map_info->height - 1)
+			|| (j == 0 || j == data->map_info->width - 1)
 			|| (i > 0 && (is_valid_elem(data->map[i - 1][j]) == 0))
 			|| ((i < data->map_info->height - 1)
 				&& (is_valid_elem(data->map[i + 1][j]) == 0)))
@@ -251,8 +263,10 @@ static void mapa_comprobar(t_data *data, int i)
 
 int	load_map(t_data *data, int i)
 {
-	while (line_is_empty(data->file[i]))
+	while (data->file[i] && line_is_empty(data->file[i]))
 		i++;
+	if (!data->file[i])
+		return (0);
 	while (!contains_ones_or_zeros(data->file[i]))
 		return (0);
 	data->map_info->height = get_map_height(data->file, i);
