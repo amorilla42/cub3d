@@ -8,8 +8,6 @@ static void	move_forward(t_data *data)
 	x = data->player->pos_x + data->player->dir_x * MOV_SPEED;
 	y = data->player->pos_y + data->player->dir_y * MOV_SPEED;
 	check_valid_position(data, x, y);
-	/*data->player->pos_x += player->dir_x * MOV_SPEED;
-	data->player->pos_y += player->dir_y * MOV_SPEED;*/
 
 }
 
@@ -21,9 +19,6 @@ static void	move_left(t_data *data)
 	x = data->player->pos_x + data->player->dir_y * MOV_SPEED;
 	y = data->player->pos_y - data->player->dir_x * MOV_SPEED;
 	check_valid_position(data, x, y);
-
-	/*data->player->pos_x += player->dir_y * MOV_SPEED;
-	data->player->pos_y -= player->dir_x * MOV_SPEED;*/
 }
 
 static void	move_backward(t_data *data)
@@ -35,9 +30,6 @@ static void	move_backward(t_data *data)
 	y = data->player->pos_y - data->player->dir_y * MOV_SPEED;
 	check_valid_position(data, x, y);
 
-	/*data->player->pos_x -= player->dir_x * MOV_SPEED;
-	data->player->pos_y -= player->dir_y * MOV_SPEED;*/
-
 }
 
 static void	move_right(t_data *data)
@@ -48,9 +40,6 @@ static void	move_right(t_data *data)
 	x = data->player->pos_x - data->player->dir_y * MOV_SPEED;
 	y = data->player->pos_y + data->player->dir_x * MOV_SPEED;
 	check_valid_position(data, x, y);
-
-	/*data->player->pos_x -= player->dir_y * MOV_SPEED;
-	data->player->pos_y += player->dir_x * MOV_SPEED;*/
 }
 
 void	move_player(void *game_data)
