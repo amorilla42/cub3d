@@ -2,12 +2,20 @@ NO assets/textures/wood.png
 SO assets/textures/redbrick.png
 WE assets/textures/mossy.png
 EA assets/textures/purplestone.png
-F 220,100,0
-C 33,30,200
 
-111111
-100001
-100001
-10N001
-100001
-111111
+F 20,20
+C 200,200,200
+
+11111
+10001
+10S01
+10001
+10001
+10001
+11001
+10001
+10001
+10001
+10001
+10001
+11111
