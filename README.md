@@ -14,7 +14,7 @@ git clone https://github.com/amorilla42/cub3d.git
 To compile the project, execute ```cd``` into the cloned repository and use:
 
 ```
-    make
+make
 ```
 
 ## Run program
@@ -22,5 +22,5 @@ To compile the project, execute ```cd``` into the cloned repository and use:
  To run the program:
 
 ```
-    ./cub3d _path_to_.cub_file_
+./cub3d _path_to_.cub_file
 ```
